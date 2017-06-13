@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<div th:replace="~{includes/bootstrapMeta :: bootstrapMeta}" />
+<title>Recept Manager</title>
+<div th:replace="~{includes/bootstrapCSS :: bootstrapCSS}" />
+<link
+	href="http://www.malot.fr/bootstrap-datetimepicker/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css"
+	rel="stylesheet">
+</head>
+<body>
+	<div class="container" role="main">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<form class="form-horizontal" method="post" th:action="${recept} ? @{/editRecept(id=${recept.id})} : @{addRecept}">
+					<fieldset>
+						<legend th:text="${recept}? 'Change Recept' : 'New Recept'">New Recept</legend>
+
+						<!--  ----------------  ssn ---------------- -->
+						<div class="form-group">
+							<label for="inputId" class="col-md-2 control-label">SSN</label>
+							<div class="col-md-10">
+								<input class="form-control" id="inputId" type="text" name="ssn" th:value="${recept} ? ${recept.id}" th:readonly="${recept != null}">
+							</div>
+						</div>
+
+						<!-- --------------  first Name ---------------- -->
+						<div class="form-group">
+							<label for="inputName" class="col-md-2 control-label">Name</label>
+							<div class="col-md-10">
+								<input class="form-control" id="inputName" type="text"
+									name="name" th:value="${recept} ? ${recept.name}">
+							</div>
+						</div>
+						<!-- --------------  Beschreibung ---------------- -->
+						<div class="form-group">
+							<label for="inputBeschreibung" class="col-md-2 control-label">Last
+								Name</label>
+							<div class="col-md-10">
+								<input class="form-control" id="inputBeschreibung" type="text"
+									name="beschreibung" th:value="${recept} ? ${recept.beschreibung}">
+							</div>
+						</div>
+
+						<!-- --------------  Zubereitung ---------------- -->
+						<div class="form-group">
+							<label for="inputZubereitung" class="col-md-2 control-label">Last
+								Name</label>
+							<div class="col-md-10">
+								<input class="form-control" id="inputZubereitung" type="text"
+									name="zubereitung" th:value="${recept} ? ${recept.zubereitung}">
+							</div>
+						</div>
+						<!-- --------------  User ---------------- -->
+						<div class="form-group">
+							<label for="inputUser" class="col-md-2 control-label">Last
+								Name</label>
+							<div class="col-md-10">
+								<input class="form-control" id="inputUser" type="text"
+									name="user" th:value="${recept} ? ${recept.user.name}">
+							</div>
+						</div>
+
+						<!-- --------------  buttons ---------------- -->
+						<div class="form-group">
+							<div class="col-md-10 col-md-offset-2">
+								<button type="submit" class="btn btn-primary">Submit</button>
+								
+								<a href="listRecepts">
+									<button type="button" class="btn btn-default">Cancel</button>
+								</a>
+							</div>
+						</div>
+
+					</fieldset>
+				</form>
+			</div>
+		</div>
+
+	</div>
+	<!--  End of container -->
+
+
+	<div th:replace="~{includes/bootstrapJS :: bootstrapJS}" />
+
+	<!-- JS for Datetime picker -->
+
+	<script type="text/javascript"
+		src="http://www.malot.fr/bootstrap-datetimepicker/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+
+	<script>
+		$(function() {
+
+			$(".form_datetime").datetimepicker({
+				format : "dd.mm.yyyy",
+				autoclose : true,
+				todayBtn : true,
+				pickerPosition : "bottom-left",
+				minView : 2
+			});
+
+		});
+	</script>
+
+</body>
+</html>

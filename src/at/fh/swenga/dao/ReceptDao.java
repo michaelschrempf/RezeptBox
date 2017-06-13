@@ -1,5 +1,6 @@
 package at.fh.swenga.dao;
  
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -61,5 +62,55 @@ public class ReceptDao {
 		ReceptModel Recept = getRecept(id);
 		if (Recept != null)
 			delete(Recept);
+	}
+	private List<ReceptModel> recepts = new ArrayList<ReceptModel>();
+	 
+
+	public void addRecept(ReceptModel recept) {
+		recepts.add(recept);
+	}
+ 
+	public boolean contains(ReceptModel recept) {
+		return recepts.contains(recept);
+	}
+
+	public boolean isEmpty() {
+		return recepts.isEmpty();
+	}
+	public ReceptModel getReceptById(int id) {
+		for (ReceptModel receptModel : recepts) {
+			if (receptModel.getId() == id) {
+				return receptModel;
+			}
+		}
+		return null;
+	}
+ 
+	public List<ReceptModel> getAllRecepts() {
+		return recepts;
+	}
+
+	public List<ReceptModel> getFilteredRecepts(String searchString) {
+ 
+		if (searchString == null || searchString.equals("")) {
+			return recepts;
+		}
+ 
+		// List for results
+		List<ReceptModel> filteredList = new ArrayList<ReceptModel>();
+ 
+		// check every recept
+		for (ReceptModel receptModel : recepts) {
+ 
+			if ((receptModel.getName() != null && receptModel.getName().contains(searchString))
+					|| (receptModel.getBeschreibung() != null && receptModel.getBeschreibung().contains(searchString))) {
+				filteredList.add(receptModel);
+			}
+		}
+		return filteredList;
+	}
+
+	public boolean remove(int id) {
+		return recepts.remove(new ReceptModel(id,null, null, null));
 	}
 }

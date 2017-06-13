@@ -1,10 +1,14 @@
 package at.fh.swenga.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -21,7 +25,8 @@ public class QuantityUnitModel implements java.io.Serializable {
 	private String name;
 	
 	//Relationship
-	
+	@OneToMany(mappedBy="quantityUnitModel", fetch=FetchType.EAGER)
+	private Set<IngredientModel> ingredients;
 	/*-----------------------------------------------*/
 	
 	public QuantityUnitModel() {
