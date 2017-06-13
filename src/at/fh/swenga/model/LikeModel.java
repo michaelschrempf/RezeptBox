@@ -1,6 +1,8 @@
 package at.fh.swenga.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -9,17 +11,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
-
+@Entity
 @Table(name = "like")
 public class LikeModel implements java.io.Serializable{
 	
-	/*@JoinColumn(name="id_user", nullable = false)
-	@ManyToOne
-	private UserModel user;
+	@ManyToOne (cascade = CascadeType.PERSIST)
+	@JoinColumn(name="userModel_fk")
+	UserModel usermodel;
 	
-	@JoinColumn(name="id_recept", nullable = false)
-	@ManyToOne
-	private ReceptModel recept;*/
+	@ManyToOne (cascade = CascadeType.PERSIST)
+	@JoinColumn(name="receptModel_fk")
+	ReceptModel receptModel;
 
 	@Version
 	long version;
@@ -35,5 +37,21 @@ public class LikeModel implements java.io.Serializable{
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public UserModel getUsermodel() {
+		return usermodel;
+	}
+
+	public void setUsermodel(UserModel usermodel) {
+		this.usermodel = usermodel;
+	}
+
+	public ReceptModel getReceptModel() {
+		return receptModel;
+	}
+
+	public void setReceptModel(ReceptModel receptModel) {
+		this.receptModel = receptModel;
 	}
 }

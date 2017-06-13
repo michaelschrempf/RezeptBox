@@ -1,9 +1,11 @@
 package at.fh.swenga.model;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +16,9 @@ import javax.persistence.Table;
 @Table(name = "ReceptCategorieModel")
 public class ReceptCategorieModel implements java.io.Serializable {
 
+	@OneToMany(mappedBy="receptmodel", fetch=FetchType.EAGER)
+	private Set<ReceptModel> receptModel;
+	
 	@Id
 	@Column(name = "id_receptCategorie")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

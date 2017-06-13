@@ -3,36 +3,55 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <div th:replace="~{includes/bootstrapMeta :: bootstrapMeta}" />
-<title>Recept Manager</title>
+<title>RezeptBox</title>
 <div th:replace="~{includes/bootstrapCSS :: bootstrapCSS}" />
 </head>
 <body>
 	<div class="container" role="main">
+<div class="page-header">
+			<h1>RezeptBox</h1>
+		</div>
+		<!--  Error message ----------------------------------------------------------- -->
+		<div th:unless="${errorMessage} == null" th:utext="${errorMessage}"
+			class="alert alert-danger" role="alert"></div>
+		<!--  Error message ----------------------------------------------------------- -->
 
-		<!--  1 simple button ----------------------------------------------------------- -->
+		<!--  Warning message ----------------------------------------------------------- -->
+		<div th:unless="${warningMessage} == null" th:utext="${warningMessage}"
+			class="alert alert-warning" role="warning"></div>
+		<!--  Warning message ----------------------------------------------------------- -->
+
+		<!--   message ----------------------------------------------------------- -->
+		<div th:unless="${message} == null" th:utext="${message}"
+			class="alert alert-success" role="warning"></div>
+		<!--   message ----------------------------------------------------------- -->
+
+		<nav th:replace="~{includes/searchNav :: search}"></nav>
+
+		<!--  2 simple buttons ----------------------------------------------------------- -->
 		<div class="row">
-			<div class="col-md-10">
-				<h1>Spring Data JPA</h1>
-			</div>
-
-			<div class="col-md-2">
-				<a href="fillReceptList">
-					<button type="button" class="btn btn-success">Fill List</button>
-				</a>
+			<div class="col-md-4 col-md-offset-4">
+				<p>
+					<a href="addRecept">
+						<button type="button" class="btn btn-success">Add new
+							Recept</button>
+					</a> <a href="fillReceptList">
+						<button type="button" class="btn btn-success">Fill List</button>
+					</a>
+				</p>
 			</div>
 		</div>
-		<hr>
 
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1">
 				<table data-toggle="table" class="table table-striped">
 					<thead>
 						<tr>
-							<th>ID</th>
-							<th>Name</th>
-							<th>Beschreibung</th>
-							<th>Zubereitung</th>
-							<th>User</th>
+							<th data-sortable="true">ID</th>
+							<th data-sortable="true">Name</th>
+							<th data-sortable="true">Beschreibung</th>
+							<th data-sortable="true">Zubereitung</th>
+							<th data-sortable="true">User</th>
 							<th>Action</th>
 						</tr>
 					</thead>
@@ -43,13 +62,24 @@
 							<td th:text="${Recept.name}"></td>
 							<td th:text="${Recept.beschreibung}"></td>
 							<td th:text="${Recept.zubereitung}"></td>
-							<td th:text="${Recept.usermodel.name}"></td>							
-							<td><a th:href="@{/delete(id=${Recept.id})}">Delete</a></td>						
+							<td th:text="${Recept.usermodel.name}"></td>
+							<td><a th:href="@{/deleteRecept(id=${Recept.id})}">
+									<button type="button" class="btn btn-xs btn-danger">
+										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+										Delete
+									</button>
+							</a><a
+								th:href="@{/editRecept(id=${Recept.id})}">
+									<button type="button" class="btn btn-xs btn-success">
+										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+										Edit
+									</button>
+							</a></td>
 						</tr>
 						<!--  list all items ----------------------------------------------------------- -->
 					</tbody>
 				</table>
-								
+
 			</div>
 		</div>
 	</div>
