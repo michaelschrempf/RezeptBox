@@ -16,8 +16,8 @@ import javax.persistence.Table;
 @Table(name = "ReceptCategorieModel")
 public class ReceptCategorieModel implements java.io.Serializable {
 
-	@OneToMany(mappedBy="receptmodel", fetch=FetchType.EAGER)
-	private Set<ReceptModel> receptModel;
+	/*@OneToMany(mappedBy="receptmodel", fetch=FetchType.EAGER)
+	private Set<ReceptModel> receptModel;*/
 	
 	@Id
 	@Column(name = "id_receptCategorie")

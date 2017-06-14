@@ -10,10 +10,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 
 
 @Entity
+@Table(name = "User")
 public class UserModel implements java.io.Serializable {
 	
 	// Attribute
@@ -35,7 +37,6 @@ public class UserModel implements java.io.Serializable {
 	@Column(nullable = false, length = 45)
 	private String password;
 
-	private Set<UserRole> userRole = new HashSet<UserRole>(0);
 	
 	@OneToMany(mappedBy="usermodel", fetch=FetchType.EAGER)
 	private Set<ReceptModel> recepts;
@@ -46,16 +47,13 @@ public class UserModel implements java.io.Serializable {
 	@OneToMany(mappedBy="usermodel", fetch=FetchType.EAGER)
 	private Set<CommentModel> comments;
 	
-	public UserModel(int id, String firstName, String lastName, String userName, String password,
-			Set<ReceptModel> recepts, Set<UserRole> userRole) {
+	public UserModel(int id, String firstName, String lastName, String userName, String password) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.userName = userName;
 		this.password = password;
-		this.recepts = recepts;
-		this.userRole = userRole;
 	}
 	
 	public UserModel() {
@@ -107,14 +105,6 @@ public class UserModel implements java.io.Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	public Set<UserRole> getUserRole() {
-		return userRole;
-	}
-
-	public void setUserRole(Set<UserRole> userRole) {
-		this.userRole = userRole;
 	}
 
 	public Set<LikeModel> getLikes() {

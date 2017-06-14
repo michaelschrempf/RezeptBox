@@ -19,9 +19,9 @@ public class LikeModel implements java.io.Serializable{
 	@JoinColumn(name="userModel_fk")
 	UserModel usermodel;
 	
-	@ManyToOne (cascade = CascadeType.PERSIST)
+	/*@ManyToOne (cascade = CascadeType.PERSIST)
 	@JoinColumn(name="receptModel_fk")
-	ReceptModel receptModel;
+	ReceptModel receptModel;*/
 
 	@Version
 	long version;
@@ -47,11 +47,11 @@ public class LikeModel implements java.io.Serializable{
 		this.usermodel = usermodel;
 	}
 
-	public ReceptModel getReceptModel() {
+	/*public ReceptModel getReceptModel() {
 		return receptModel;
 	}
 
 	public void setReceptModel(ReceptModel receptModel) {
 		this.receptModel = receptModel;
-	}
+	}*/
 }

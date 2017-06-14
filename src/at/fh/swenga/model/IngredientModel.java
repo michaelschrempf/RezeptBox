@@ -31,12 +31,12 @@ public class IngredientModel implements java.io.Serializable {
 	private int menge;
 
 	/*---------------------------------------------------------*/
-	@OneToMany(mappedBy="ingredientmodel", fetch=FetchType.EAGER)
+	/*@OneToMany(mappedBy="ingredientmodel", fetch=FetchType.EAGER)
 	private Set<ReceptIngredientModel> receptingredients;
 	
 	@ManyToOne (cascade = CascadeType.PERSIST)
 	@JoinColumn(name="quantityUnitModel_fk")
-	QuantityUnitModel quantityUnits;
+	QuantityUnitModel quantityUnits;*/
 
 	/*---------------------------------------------------------*/
 

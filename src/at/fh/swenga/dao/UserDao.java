@@ -22,18 +22,18 @@ public class UserDao {
 	public List<UserModel> getUserModels() {
  
 		TypedQuery<UserModel> typedQuery = entityManager.createQuery(
-				"select em from UserModel em", UserModel.class);
+				"select um from UserModel um", UserModel.class);
 		List<UserModel> typedResultList = typedQuery.getResultList();
 		return typedResultList;
 	}
  
-	public UserModel getUserModel(String name) {
+	public UserModel getUserModel(int user_id) {
 		try {
  
 			TypedQuery<UserModel> typedQuery = entityManager.createQuery(
-					"select em from UserModel em where em.name = :name",
+					"select um from UserModel um where um.id = :user_id",
 					UserModel.class);
-			typedQuery.setParameter("name", name);
+			typedQuery.setParameter("id", user_id);
 			UserModel UserModel = typedQuery.getSingleResult();
 			return UserModel;
 		} catch (NoResultException e) {

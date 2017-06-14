@@ -51,7 +51,6 @@
 							<th data-sortable="true">Name</th>
 							<th data-sortable="true">Beschreibung</th>
 							<th data-sortable="true">Zubereitung</th>
-							<th data-sortable="true">User</th>
 							<th>Action</th>
 						</tr>
 					</thead>
@@ -62,7 +61,6 @@
 							<td th:text="${Recept.name}"></td>
 							<td th:text="${Recept.beschreibung}"></td>
 							<td th:text="${Recept.zubereitung}"></td>
-							<td th:text="${Recept.usermodel.name}"></td>
 							<td><a th:href="@{/deleteRecept(id=${Recept.id})}">
 									<button type="button" class="btn btn-xs btn-danger">
 										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>

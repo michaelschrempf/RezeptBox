@@ -48,26 +48,19 @@ public class ReceptController {
 	@Transactional
 	public String fillData(Model model) {
 		
-		/*UserModel user1 = UserDao.getUserModel(1,"kevin","stessel");
-		if (user1==null) user1 = new UserModel("kevin");
-		
-		UserModel user2 = UserDao.getUserModel("Martin");
-		if (user2==null) user2 = new UserModel("Martin");
-		
-		UserModel user3 = UserDao.getUserModel("Sebastian");
-		if (user3==null) user3 = new UserModel("Sebastian");*/
+		UserModel user1 = new UserModel(1,"kevin","stessel","kiv1995","cobra11");
 
 		ReceptModel p1 = new ReceptModel(1,"Cordon Bleu", "Gefülltes Schnitzel", "hahahahah");
-		//p1.setUsermodel(user1);
+		p1.setUsermodel(user1);
 		receptDao.persist(p1);
 
-		ReceptModel p2 = new ReceptModel(2,"Schnitzel", "Schnitzel", "fritieren");
+		/*ReceptModel p2 = new ReceptModel(2,"Schnitzel", "Schnitzel", "fritieren");
 		//p2.setUsermodel(user2);
 		receptDao.persist(p2);
 
 		ReceptModel p3 = new ReceptModel(3,"Erdberren", "Doe", "now");
 		//p3.setUsermodel(user3);
-		receptDao.persist(p3);
+		receptDao.persist(p3);*/
 
 		return "forward:list";
 	}
