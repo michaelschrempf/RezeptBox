@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -39,15 +40,17 @@ public class ReceptModel implements java.io.Serializable {
 	@JoinColumn(name="userModel_fk")
 	UserModel usermodel;
 	
-	@OneToMany(mappedBy="receptmodel", fetch=FetchType.EAGER)
-	private Set<LikeModel> likes;
+	/*@OneToMany(mappedBy="receptmodel", fetch=FetchType.EAGER)
+	private Set<LikeModel> likes;*/
 	
-	@OneToMany(mappedBy="receptingredientmodel", fetch=FetchType.EAGER)
+	/*@OneToMany(mappedBy="receptingredientmodel", fetch=FetchType.EAGER)
 	private Set<ReceptIngredientModel> receptingredients;
+	*/
 	
 	@ManyToOne (cascade = CascadeType.PERSIST)
 	@JoinColumn(name="receptCategorieModel_fk")
 	ReceptCategorieModel receptCategorieModel;
+	
 	
 	/*-----------------------*/
 	public ReceptModel() {
@@ -102,13 +105,13 @@ public class ReceptModel implements java.io.Serializable {
 		this.usermodel = usermodel;
 	}
 
-	public Set<LikeModel> getLikes() {
+	/*public Set<LikeModel> getLikes() {
 		return likes;
 	}
 
 	public void setLikes(Set<LikeModel> likes) {
 		this.likes = likes;
-	}
+	}*/
 
 	public ReceptCategorieModel getReceptCategorieModel() {
 		return receptCategorieModel;
@@ -118,11 +121,11 @@ public class ReceptModel implements java.io.Serializable {
 		this.receptCategorieModel = receptCategorieModel;
 	}
 
-	public Set<ReceptIngredientModel> getReceptingredients() {
+	/*public Set<ReceptIngredientModel> getReceptingredients() {
 		return receptingredients;
 	}
 
 	public void setReceptingredients(Set<ReceptIngredientModel> receptingredients) {
 		this.receptingredients = receptingredients;
-	}
+	}*/
 }

@@ -25,8 +25,8 @@ public class QuantityUnitModel implements java.io.Serializable {
 	private String name;
 	
 	//Relationship
-	@OneToMany(mappedBy="quantityUnitModel", fetch=FetchType.EAGER)
-	private Set<IngredientModel> ingredients;
+	/*@OneToMany(mappedBy="quantityUnitModel", fetch=FetchType.EAGER)
+	private Set<IngredientModel> ingredients;*/
 	/*-----------------------------------------------*/
 	
 	public QuantityUnitModel() {
@@ -54,5 +54,13 @@ public class QuantityUnitModel implements java.io.Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
+
+	/*public Set<IngredientModel> getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(Set<IngredientModel> ingredients) {
+		this.ingredients = ingredients;
+	}*/
 
 }
