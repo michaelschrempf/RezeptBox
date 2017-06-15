@@ -36,7 +36,7 @@ public class RecipeModel implements java.io.Serializable {
 	long version;
 
 	/*Realtionships*/
-	@ManyToOne (cascade = CascadeType.PERSIST)
+	@ManyToOne
 	@JoinColumn(name="userModel_fk")
 	UserModel userModel;
 	
@@ -46,12 +46,12 @@ public class RecipeModel implements java.io.Serializable {
 	/*@OneToMany(mappedBy="receptingredientmodel", fetch=FetchType.EAGER)
 	private Set<ReceptIngredientModel> receptingredients;
 	*/
-	
+	/*
 	@ManyToOne (cascade = CascadeType.PERSIST)
 	@JoinColumn(name="recipeCategoryModel_fk")
 	RecipeCategoryModel recipeCategoryModel;
 	
-	
+*/	
 	/*-----------------------*/
 	public RecipeModel() {
 		super();
@@ -112,7 +112,7 @@ public class RecipeModel implements java.io.Serializable {
 	public void setLikes(Set<LikeModel> likes) {
 		this.likes = likes;
 	}*/
-
+/*
 	public RecipeCategoryModel getRecipeCategoryModel() {
 		return recipeCategoryModel;
 	}
@@ -120,7 +120,7 @@ public class RecipeModel implements java.io.Serializable {
 	public void setRecipeCategoryModel(RecipeCategoryModel recipeCategoryModel) {
 		this.recipeCategoryModel = recipeCategoryModel;
 	}
-
+*/
 	/*public Set<ReceptIngredientModel> getReceptingredients() {
 		return receptingredients;
 	}

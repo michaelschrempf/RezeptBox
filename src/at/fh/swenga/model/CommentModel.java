@@ -24,7 +24,7 @@ public class CommentModel implements java.io.Serializable {
 	@Column(name = "id_comment")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-
+/*
 	@ManyToOne (cascade = CascadeType.PERSIST)
 	@JoinColumn(name="userModel_fk")
 	UserModel userModel;
@@ -32,7 +32,7 @@ public class CommentModel implements java.io.Serializable {
 	@ManyToOne (cascade = CascadeType.PERSIST)
 	@JoinColumn(name="recipeModel_fk")
 	RecipeModel recipeModel;
-	
+*/	
 	@Column(nullable = false, length = 1000)
 	private String text;
 

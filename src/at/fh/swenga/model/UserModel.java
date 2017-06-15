@@ -40,13 +40,13 @@ public class UserModel implements java.io.Serializable {
 	
 	@OneToMany(mappedBy="userModel", fetch=FetchType.EAGER)
 	private Set<RecipeModel> recipes;
-	
+/*	
 	@OneToMany(mappedBy="userModel", fetch=FetchType.EAGER)
 	private Set<LikeModel> likes;
 	
 	@OneToMany(mappedBy="userModel", fetch=FetchType.EAGER)
 	private Set<CommentModel> comments;
-	
+*/	
 	public UserModel(int id, String firstName, String lastName, String userName, String password) {
 		super();
 		this.id = id;
@@ -106,7 +106,7 @@ public class UserModel implements java.io.Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+/*
 	public Set<LikeModel> getLikes() {
 		return likes;
 	}
@@ -122,5 +122,5 @@ public class UserModel implements java.io.Serializable {
 	public void setComments(Set<CommentModel> comments) {
 		this.comments = comments;
 	}
-
+*/
 }
