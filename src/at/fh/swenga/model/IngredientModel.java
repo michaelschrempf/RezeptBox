@@ -38,8 +38,8 @@ public class IngredientModel implements java.io.Serializable {
 	private int menge;
 
 	/*---------------------------------------------------------*/
-	/*@OneToMany(mappedBy="ingredientmodel", fetch=FetchType.EAGER)
-	private Set<ReceptIngredientModel> receptingredients;
+	/*@OneToMany(mappedBy="ingredientModel", fetch=FetchType.EAGER)
+	private Set<RecipeIngredientModel> recipeIngredients;
 	
 	@ManyToOne (cascade = CascadeType.PERSIST)
 	@JoinColumn(name="quantityUnitModel_fk")

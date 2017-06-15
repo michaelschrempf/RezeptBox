@@ -68,6 +68,7 @@ public class CommentModel implements java.io.Serializable {
 		this.id = id;
 	}
 
+	/*
 	public UserModel getUsermodel() {
 		return userModel;
 	}
@@ -83,5 +84,6 @@ public class CommentModel implements java.io.Serializable {
 	public void setRecipeModel(RecipeModel recipeModel) {
 		this.recipeModel = recipeModel;
 	}
+	*/
 
 }

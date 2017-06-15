@@ -1,4 +1,4 @@
-package at.fh.swenga.dao;
+package at.fh.swenga.manager;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import at.fh.swenga.model.UserModel;
 
 @Repository
 @Transactional
-public class UserDAO {
+public class UserManager {
 	
 	@PersistenceContext
 	protected EntityManager entityManager;

@@ -14,10 +14,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.WebRequest;
 
-import at.fh.swenga.dao.IngredientDAO;
-import at.fh.swenga.dao.RecipeDAO;
-import at.fh.swenga.dao.UserDAO;
+import at.fh.swenga.account.service.SecurityService;
+import at.fh.swenga.account.service.UserService;
+import at.fh.swenga.account.validator.UserValidator;
+import at.fh.swenga.dao.IngredientRepository;
+import at.fh.swenga.dao.RecipeRepository;
+import at.fh.swenga.manager.UserManager;
 import at.fh.swenga.model.RecipeModel;
 import at.fh.swenga.model.UserModel;
 
@@ -25,13 +29,22 @@ import at.fh.swenga.model.UserModel;
 public class RecipeController {
 
 	@Autowired
-	RecipeDAO recipeDAO;
+	RecipeRepository recipeDAO;
 
 	@Autowired
-	UserDAO userDAO;
+	UserManager userDAO;
 	
 	@Autowired
-	IngredientDAO ingredientDAO;
+	IngredientRepository ingredientDAO;
+	
+	 @Autowired
+	    private UserService userService;
+
+	    @Autowired
+	    private SecurityService securityService;
+
+	    @Autowired
+	    private UserValidator userValidator;
 
 	@RequestMapping(value = { "/", "list" })
 	public String index(Model model) {
@@ -155,10 +168,49 @@ public class RecipeController {
 
 		return "forward:/list";
 	}
+	
+	
 	// @ExceptionHandler(Exception.class)
 	public String handleAllException(Exception ex) {
 
 		return "error";
 
 	}
+	
+	
+	
+	
+
+	    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+	    public String registration(Model model) {
+	        model.addAttribute("userForm", new UserModel());
+
+	        return "registration";
+	    }
+
+	    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+	    public String registration(@ModelAttribute("userForm") UserModel userForm, BindingResult bindingResult, Model model) {
+	        userValidator.validate(userForm, bindingResult);
+
+	        if (bindingResult.hasErrors()) {
+	            return "registration";
+	        }
+
+	        userService.save(userForm);
+
+	        securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
+
+	        return "redirect:/index";
+	    }
+
+	    @RequestMapping(value = "/login", method = RequestMethod.GET)
+	    public String login(Model model, String error, String logout) {
+	        if (error != null)
+	            model.addAttribute("error", "Your username and password is invalid.");
+
+	        if (logout != null)
+	            model.addAttribute("message", "You have been logged out successfully.");
+
+	        return "login";
+	    }
 }

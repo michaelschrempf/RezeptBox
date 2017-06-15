@@ -16,7 +16,7 @@ import at.fh.swenga.model.RecipeModel;
  
 @Repository
 @Transactional
-public class RecipeDAO {
+public class RecipeRepository {
 	//allows us to read, update and delete RecipeModel in the database
 	@PersistenceContext
 	protected EntityManager entityManager;

@@ -14,7 +14,7 @@ import at.fh.swenga.model.IngredientModel;
 
 @Repository
 @Transactional
-public class IngredientDAO {
+public class IngredientRepository {
 	
 	@PersistenceContext
 	protected EntityManager entityManager;
