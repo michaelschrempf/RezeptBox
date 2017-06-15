@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "User")
+@Table(name = "UserModel")
 public class UserModel implements java.io.Serializable {
 	
 	// Attribute
@@ -38,13 +38,13 @@ public class UserModel implements java.io.Serializable {
 	private String password;
 
 	
-	@OneToMany(mappedBy="usermodel", fetch=FetchType.EAGER)
-	private Set<ReceptModel> recepts;
+	@OneToMany(mappedBy="userModel", fetch=FetchType.EAGER)
+	private Set<RecipeModel> recipes;
 	
-	@OneToMany(mappedBy="usermodel", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="userModel", fetch=FetchType.EAGER)
 	private Set<LikeModel> likes;
 	
-	@OneToMany(mappedBy="usermodel", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="userModel", fetch=FetchType.EAGER)
 	private Set<CommentModel> comments;
 	
 	public UserModel(int id, String firstName, String lastName, String userName, String password) {
@@ -68,11 +68,11 @@ public class UserModel implements java.io.Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Set<ReceptModel> getRecepts() {
-		return recepts;
+	public Set<RecipeModel> getRecipes() {
+		return recipes;
 	}
-	public void setRecepts(Set<ReceptModel> recepts) {
-		this.recepts = recepts;
+	public void setRecipes(Set<RecipeModel> recipes) {
+		this.recipes = recipes;
 	}
 
 	public String getFirstName() {

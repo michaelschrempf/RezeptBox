@@ -12,8 +12,13 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-@Table(name = "Kommentare")
+@Table(name = "CommentModel")
 public class CommentModel implements java.io.Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "id_comment")
@@ -22,11 +27,11 @@ public class CommentModel implements java.io.Serializable {
 
 	@ManyToOne (cascade = CascadeType.PERSIST)
 	@JoinColumn(name="userModel_fk")
-	UserModel usermodel;
+	UserModel userModel;
 	
 	@ManyToOne (cascade = CascadeType.PERSIST)
-	@JoinColumn(name="receptModel_fk")
-	ReceptModel receptModel;
+	@JoinColumn(name="recipeModel_fk")
+	RecipeModel recipeModel;
 	
 	@Column(nullable = false, length = 1000)
 	private String text;
@@ -64,19 +69,19 @@ public class CommentModel implements java.io.Serializable {
 	}
 
 	public UserModel getUsermodel() {
-		return usermodel;
+		return userModel;
 	}
 
-	public void setUsermodel(UserModel usermodel) {
-		this.usermodel = usermodel;
+	public void setUsermodel(UserModel userModel) {
+		this.userModel = userModel;
 	}
 
-	public ReceptModel getReceptModel() {
-		return receptModel;
+	public RecipeModel getRecipeModel() {
+		return recipeModel;
 	}
 
-	public void setReceptModel(ReceptModel receptModel) {
-		this.receptModel = receptModel;
+	public void setRecipeModel(RecipeModel recipeModel) {
+		this.recipeModel = recipeModel;
 	}
 
 }

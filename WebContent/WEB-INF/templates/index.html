@@ -32,10 +32,10 @@
 		<div class="row">
 			<div class="col-md-4 col-md-offset-4">
 				<p>
-					<a href="addRecept">
+					<a href="addRecipe">
 						<button type="button" class="btn btn-success">Add new
-							Recept</button>
-					</a> <a href="fillReceptList">
+							Recipe</button>
+					</a> <a href="fillRecipeList">
 						<button type="button" class="btn btn-success">Fill List</button>
 					</a>
 				</p>
@@ -49,25 +49,25 @@
 						<tr>
 							<th data-sortable="true">ID</th>
 							<th data-sortable="true">Name</th>
-							<th data-sortable="true">Beschreibung</th>
-							<th data-sortable="true">Zubereitung</th>
+							<th data-sortable="true">Description</th>
+							<th data-sortable="true">Preparation</th>
 							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
 						<!--  list all items ----------------------------------------------------------- -->
-						<tr th:each="Recept : ${Recepts}">
-							<td th:text="${Recept.id}"></td>
-							<td th:text="${Recept.name}"></td>
-							<td th:text="${Recept.beschreibung}"></td>
-							<td th:text="${Recept.zubereitung}"></td>
-							<td><a th:href="@{/deleteRecept(id=${Recept.id})}">
+						<tr th:each="Recipe : ${recipes}">
+							<td th:text="${recipe.id}"></td>
+							<td th:text="${recipe.name}"></td>
+							<td th:text="${recipe.description}"></td>
+							<td th:text="${recipe.preparation}"></td>
+							<td><a th:href="@{/deleteRecipe(id=${Recipe.id})}">
 									<button type="button" class="btn btn-xs btn-danger">
 										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 										Delete
 									</button>
 							</a><a
-								th:href="@{/editRecept(id=${Recept.id})}">
+								th:href="@{/editRecipe(id=${Recipe.id})}">
 									<button type="button" class="btn btn-xs btn-success">
 										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 										Edit
