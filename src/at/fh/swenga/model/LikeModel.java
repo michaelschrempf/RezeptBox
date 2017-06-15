@@ -12,12 +12,12 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-@Table(name = "like")
+@Table(name = "LikeModel")
 public class LikeModel implements java.io.Serializable{
 	
 	@ManyToOne (cascade = CascadeType.PERSIST)
 	@JoinColumn(name="userModel_fk")
-	UserModel usermodel;
+	UserModel userModel;
 	
 	/*@ManyToOne (cascade = CascadeType.PERSIST)
 	@JoinColumn(name="receptModel_fk")
@@ -39,12 +39,12 @@ public class LikeModel implements java.io.Serializable{
 		this.id = id;
 	}
 
-	public UserModel getUsermodel() {
-		return usermodel;
+	public UserModel getUserModel() {
+		return userModel;
 	}
 
-	public void setUsermodel(UserModel usermodel) {
-		this.usermodel = usermodel;
+	public void setUserModel(UserModel userModel) {
+		this.userModel = userModel;
 	}
 
 	/*public ReceptModel getReceptModel() {

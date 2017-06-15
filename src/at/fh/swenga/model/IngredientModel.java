@@ -17,7 +17,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
+@Table(name = "IngredientModel")
 public class IngredientModel implements java.io.Serializable {
+
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2534382506428673043L;
 
 	@Id
 	@Column(name = "id_ingredient")
