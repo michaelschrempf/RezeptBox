@@ -27,10 +27,12 @@ import at.fh.swenga.account.service.UserService;
 import at.fh.swenga.account.service.UserServiceImpl;
 import at.fh.swenga.account.validator.UserValidator;
 import at.fh.swenga.dao.IngredientRepository;
+import at.fh.swenga.dao.RecipeCategoryRepository;
 import at.fh.swenga.dao.RecipeRepository;
 import at.fh.swenga.dao.UserRepository;
 import at.fh.swenga.dao.UserRoleRepository;
 import at.fh.swenga.manager.UserManager;
+import at.fh.swenga.model.RecipeCategoryModel;
 import at.fh.swenga.model.RecipeModel;
 import at.fh.swenga.model.UserModel;
 import at.fh.swenga.model.UserRoleModel;
@@ -40,6 +42,9 @@ public class RecipeController {
 
 	@Autowired
 	private RecipeRepository recipeRepository;
+	
+	@Autowired
+	private RecipeCategoryRepository recipeCategoryRepository;
 
 	@Autowired
 	private UserRoleRepository userRoleRepository;
@@ -60,6 +65,8 @@ public class RecipeController {
 	
 	@Autowired
 	private UserValidator userValidator;
+
+
 
 	
 
@@ -96,17 +103,18 @@ public class RecipeController {
 	}
 
 	@RequestMapping(value = "/addRecipe", method = RequestMethod.GET)
-	public String showAddRecipeForm(Model model) {
+	public String showAddRecipeForm(Model model,@Valid @ModelAttribute("recipeCategoryModel") RecipeCategoryModel recipeCategoryModel) {
+		List<RecipeCategoryModel> recipeCategoryModels = recipeCategoryRepository.findAll();
+		model.addAttribute("recipeCategoryModels",recipeCategoryModels);
 		return "editRecipe";
 	}
 
 	@RequestMapping(value = "/addRecipe", method = RequestMethod.POST)
-	public String addRecipe(@Valid @ModelAttribute RecipeModel newRecipeModel, BindingResult bindingResult,
+	public String addRecipe(@Valid @ModelAttribute RecipeModel newRecipeModel ,@Valid @ModelAttribute("recipeCategoryModel") RecipeCategoryModel recipeCategoryModel, BindingResult bindingResult,
 			Model model, Principal principal) {
-		
+		newRecipeModel.setRecipeCategoryModel(recipeCategoryRepository.findByIdCategory(recipeCategoryModel.getIdCategory()));
 		newRecipeModel.setUsermodel(userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
-	
-
+		System.out.println(newRecipeModel.getIdRecipe());
 
 		if (bindingResult.hasErrors()) {
 			String errorMessage = "";
@@ -116,14 +124,14 @@ public class RecipeController {
 			model.addAttribute("errorMessage", errorMessage);
 			return "forward:/list";
 		}
-		List<RecipeModel> recipe = recipeRepository.findByName(newRecipeModel.getName());
+		List<RecipeModel> recipe3 = recipeRepository.findByName(newRecipeModel.getName());
 
-		if (recipe.size() > 0) {
+		if (recipe3.size() > 0) {
 			model.addAttribute("errorMessage", "Recipe already exists!<br>");
 		} else {
-			
 			recipeRepository.save(newRecipeModel);
-			model.addAttribute("message", "New recipe " + newRecipeModel.getIdRecipe() + " added.");
+			RecipeModel recipe2 = newRecipeModel;
+			model.addAttribute("message", "New recipe " + recipe2.getIdRecipe() + " added.");
 		}
 
 		return "forward:/list";
@@ -165,7 +173,7 @@ public class RecipeController {
 			recipe.setDescription(changedRecipeModel.getDescription());
 			recipe.setPreparation(changedRecipeModel.getPreparation());
 			recipeRepository.save(recipe);
-			model.addAttribute("message", "Changed recipe " + changedRecipeModel.getIdRecipe());
+			model.addAttribute("message", "Changed recipe " + recipe.getIdRecipe());
 		}
 
 		return "forward:/list";

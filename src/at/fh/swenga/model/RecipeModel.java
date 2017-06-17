@@ -43,6 +43,10 @@ public class RecipeModel implements java.io.Serializable {
 	@JoinColumn
 	private UserModel userModel;
 	
+	@ManyToOne
+	@JoinColumn
+	private RecipeCategoryModel recipeCategoryModel;
+	
 	/*@OneToMany(mappedBy="receptmodel", fetch=FetchType.EAGER)
 	private Set<LikeModel> likes;*/
 	
@@ -63,8 +67,12 @@ public class RecipeModel implements java.io.Serializable {
 
 	
 
+	
+
+
+
 	public RecipeModel(int idRecipe, String name, String description, String preparation, long version,
-			UserModel userModel) {
+			UserModel userModel, RecipeCategoryModel recipeCategoryModel) {
 		super();
 		this.idRecipe = idRecipe;
 		this.name = name;
@@ -72,7 +80,12 @@ public class RecipeModel implements java.io.Serializable {
 		this.preparation = preparation;
 		this.version = version;
 		this.userModel = userModel;
+		this.recipeCategoryModel = recipeCategoryModel;
 	}
+
+
+
+
 
 
 
@@ -114,6 +127,28 @@ public class RecipeModel implements java.io.Serializable {
 	public void setUsermodel(UserModel userModel) {
 		this.userModel = userModel;
 	}
+
+
+
+
+
+
+
+	public RecipeCategoryModel getRecipeCategoryModel() {
+		return recipeCategoryModel;
+	}
+
+
+
+
+
+
+
+	public void setRecipeCategoryModel(RecipeCategoryModel recipeCategoryModel) {
+		this.recipeCategoryModel = recipeCategoryModel;
+	}
+	
+	
 
 	/*public Set<LikeModel> getLikes() {
 		return likes;
