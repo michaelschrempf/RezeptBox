@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	xmlns:security="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 <div th:replace="~{includes/bootstrapMeta :: bootstrapMeta}" />
 <title>RezeptBox</title>
@@ -64,19 +64,19 @@
 							<td th:text="${recipe.description}"></td>
 							<td th:text="${recipe.preparation}"></td>
 							<td th:text="${recipe.usermodel.username}"></td>
-							<td><span sec:authorize="hasRole('ROLE_ADMIN')"> <a
+							<td> <span security:authorize="hasRole('ROLE_ADMIN')"> <a
 									th:href="@{/deleteRecipe(idRecipe=${recipe.idRecipe})}">
 										<button type="button" class="btn btn-xs btn-danger">
 											<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 											Delete
 										</button>
 								</a>
-							</span> <a th:href="@{/editRecipe(idRecipe=${recipe.idRecipe})}">
+							 <a th:href="@{/editRecipe(idRecipe=${recipe.idRecipe})}">
 									<button type="button" class="btn btn-xs btn-success">
 										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 										Edit
 									</button>
-							</a></td>
+							</a> </span> </td>
 						</tr>
 						<!--  list all items ----------------------------------------------------------- -->
 					</tbody>
