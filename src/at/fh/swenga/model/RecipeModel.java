@@ -111,8 +111,8 @@ public class RecipeModel implements java.io.Serializable {
 		return userModel;
 	}
 
-	public void setUsermodel(UserModel usermodel) {
-		this.userModel = usermodel;
+	public void setUsermodel(UserModel userModel) {
+		this.userModel = userModel;
 	}
 
 	/*public Set<LikeModel> getLikes() {

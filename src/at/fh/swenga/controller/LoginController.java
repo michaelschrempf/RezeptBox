@@ -62,11 +62,11 @@ public class LoginController {
 
 	@RequestMapping(value = { "/", "list" })
 	public String index(Model model) {
-
-		List<RecipeModel> recipes = recipeRepository.findAll();
 		
+		List<RecipeModel> recipes = recipeRepository.findAll();
 
 		model.addAttribute("recipes", recipes);
+		
 		
 		System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
 		
@@ -121,9 +121,9 @@ public class LoginController {
 
 		userService.save(user);
 
-		securityService.autologin(user.getUsername(), user.getPasswordConfirm());
+		//securityService.autologin(user.getUsername(), user.getPasswordConfirm());
 
-		return "redirect:/index";
+		return "login";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)

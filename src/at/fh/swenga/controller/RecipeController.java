@@ -122,7 +122,7 @@ public class RecipeController {
 				errorMessage += fieldError.getField() + " is invalid<br>";
 			}
 			model.addAttribute("errorMessage", errorMessage);
-			return "index";
+			return "forward:/list";
 		}
 		RecipeModel recipe = recipeRepository.findByName(newRecipeModel.getName());
 
