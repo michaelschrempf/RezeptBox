@@ -10,6 +10,7 @@
     <http auto-config="true">
         <intercept-url pattern="/" access="hasRole('ROLE_USER')"/>
         <intercept-url pattern="/list" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/addRecipe" access="hasRole('ROLE_USER')"/>
         <form-login login-page="/login" default-target-url="/list" authentication-failure-url="/login?error" username-parameter="username" password-parameter="password"/>
         <logout logout-success-url="/login?logout" />
     </http>

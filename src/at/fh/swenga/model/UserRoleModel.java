@@ -1,5 +1,6 @@
 package at.fh.swenga.model;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -10,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -24,14 +26,34 @@ private static final long serialVersionUID = 8098173157518993615L;
 	@Column(name = "userRoleId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer userRoleId;
-	@Column(name = "users")
-	private Set<UserModel> users;
+	
+	@Column
+	@ManyToMany
+	@JoinTable
+	private List<UserModel> users;
+	
 	@Column(name = "role", nullable = false, length = 45)
 	private String role;
+	
+	
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "user_role_id", unique = true, nullable = false)
+
+	public UserRoleModel(Integer userRoleId, List<UserModel> users, String role) {
+		super();
+		this.userRoleId = userRoleId;
+		this.users = users;
+		this.role = role;
+	}
+	
+	
+
+	public UserRoleModel() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	public Integer getUserRoleId() {
 		return userRoleId;
 	}
@@ -40,12 +62,12 @@ private static final long serialVersionUID = 8098173157518993615L;
 		this.userRoleId = userRoleId;
 	}
 
-	 @ManyToMany(mappedBy = "roles")
-	  public Set<UserModel> getUsers() {
+	
+	public List<UserModel> getUsers() {
 	        return users;
 	 }
 
-	public void setUsers(Set<UserModel> users) {
+	public void setUsers(List<UserModel> users) {
 		this.users = users;
 	}
 
@@ -57,5 +79,7 @@ private static final long serialVersionUID = 8098173157518993615L;
 	public void setRole(String role) {
 		this.role = role;
 	}
+	
+	
 
 }

@@ -1,7 +1,12 @@
 package at.fh.swenga.account.service;
 
+import org.springframework.transaction.annotation.Transactional;
+
+@Transactional
 public interface SecurityService {
-    String findLoggedInUsername();
+    public String findLoggedInUsername();
+   
+    
 
     void autologin(String username, String password);
 }

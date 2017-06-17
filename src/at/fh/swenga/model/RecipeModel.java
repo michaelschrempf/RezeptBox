@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,13 +17,14 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-@Table(name = "RecipeModel")
+@Table
 public class RecipeModel implements java.io.Serializable {
 
 	// Attribute
 	@Id
-	@Column(name = "id_recipe")
-	private int id;
+	@Column
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int idRecipe;
 
 	@Column(nullable = false, length = 45)
 	private String name;
@@ -37,8 +40,8 @@ public class RecipeModel implements java.io.Serializable {
 
 	/*Realtionships*/
 	@ManyToOne
-	@JoinColumn(name="userModel_fk")
-	UserModel userModel;
+	@JoinColumn
+	private UserModel userModel;
 	
 	/*@OneToMany(mappedBy="receptmodel", fetch=FetchType.EAGER)
 	private Set<LikeModel> likes;*/
@@ -58,20 +61,27 @@ public class RecipeModel implements java.io.Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public RecipeModel(int id,String name, String description, String preparation) {
+	
+
+	public RecipeModel(int idRecipe, String name, String description, String preparation, long version,
+			UserModel userModel) {
 		super();
-		this.id = id;
+		this.idRecipe = idRecipe;
 		this.name = name;
 		this.description = description;
 		this.preparation = preparation;
+		this.version = version;
+		this.userModel = userModel;
 	}
 
-	public int getId() {
-		return id;
+
+
+	public int getIdRecipe() {
+		return idRecipe;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setIdRecipe(int idRecipe) {
+		this.idRecipe = idRecipe;
 	}
 
 	public String getName() {

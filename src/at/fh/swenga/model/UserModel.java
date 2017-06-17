@@ -1,6 +1,7 @@
 package at.fh.swenga.model;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -28,33 +29,33 @@ public class UserModel implements java.io.Serializable {
 
 	// Attribute
 	@Id
-	@Column(name = "id_user")
+	@Column(name = "idUser")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int idUser;
 
-	@Column(nullable = false, length = 45)
+	@Column(nullable = true, length = 45)
 	private String firstName;
 
-	@Column(nullable = false, length = 45)
+	@Column(nullable = true, length = 45)
 	private String lastName;
 
 	@Column(nullable = false, length = 45)
 	private String username;
 
-	@Column(nullable = false, length = 45)
+	@Column(nullable = false, length = 200)
 	private String password;
 	
-	@Column(nullable = false, length = 45)
+	@Column(nullable = true, length = 200)
 	private String passwordConfirm;
 	
 	@Column
 	@OneToMany(mappedBy = "userModel", fetch = FetchType.EAGER)
-	private Set<RecipeModel> recipes;
+	private List<RecipeModel> recipes;
 	
 	@Column
 	@ManyToMany
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private Set<UserRoleModel> roles;
+    @JoinTable
+	private List<UserRoleModel> roles;
 
 	
 
@@ -65,13 +66,15 @@ public class UserModel implements java.io.Serializable {
 	 * @OneToMany(mappedBy="userModel", fetch=FetchType.EAGER) private
 	 * Set<CommentModel> comments;
 	 */
-	public UserModel(int id, String firstName, String lastName, String username, String password) {
+	public UserModel(int idUser, String firstName, String lastName, String username, String password, List<UserRoleModel> roles, List<RecipeModel> recipes) {
 		super();
-		this.id = id;
+		this.idUser = idUser;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.username = username;
 		this.password = password;
+		this.roles = roles;
+		this.recipes = recipes;
 	}
 
 	public UserModel() {
@@ -79,28 +82,28 @@ public class UserModel implements java.io.Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getId() {
-		return id;
+	public int getIdUser() {
+		return idUser;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
 	}
 
-	public Set<RecipeModel> getRecipes() {
+	public List<RecipeModel> getRecipes() {
 		return recipes;
 	}
 
-	public void setRecipes(Set<RecipeModel> recipes) {
+	public void setRecipes(List<RecipeModel> recipes) {
 		this.recipes = recipes;
 	}
 
-    public Set<UserRoleModel> getRoles() {
+    public List<UserRoleModel> getRoles() {
         return roles;
     }
 
-	public void setRoles(Set<UserRoleModel> roles) {
-		this.roles = roles;
+	public void setRoles(List<UserRoleModel> list) {
+		this.roles = list;
 	}
 
 	public String getFirstName() {

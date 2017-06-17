@@ -3,7 +3,7 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <div th:replace="~{includes/bootstrapMeta :: bootstrapMeta}" />
-<title>Recipe Manager</title>
+<title>RezeptBox Recipe</title>
 <div th:replace="~{includes/bootstrapCSS :: bootstrapCSS}" />
 <link
 	href="http://www.malot.fr/bootstrap-datetimepicker/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css"
@@ -18,12 +18,7 @@
 						<legend th:text="${recipe}? 'Change Recipe' : 'New Recipe'">New Recipe</legend>
 
 						<!--  ----------------  ssn ---------------- -->
-						<div class="form-group">
-							<label for="inputId" class="col-md-2 control-label">SSN</label>
-							<div class="col-md-10">
-								<input class="form-control" id="inputId" type="text" name="ssn" th:value="${recipe} ? ${recipe.id}" th:readonly="${recipe != null}">
-							</div>
-						</div>
+						
 
 						<!-- --------------  first Name ---------------- -->
 						<div class="form-group">
@@ -35,39 +30,30 @@
 						</div>
 						<!-- --------------  Beschreibung ---------------- -->
 						<div class="form-group">
-							<label for="inputDescription" class="col-md-2 control-label">Last
-								Name</label>
+							<label for="inputDescription" class="col-md-2 control-label">Description</label>
 							<div class="col-md-10">
 								<input class="form-control" id="inputDescription" type="text"
-									name="beschreibung" th:value="${recipe} ? ${recipe.Description}">
+									name="description" th:value="${recipe} ? ${recipe.description}">
 							</div>
 						</div>
 
 						<!-- --------------  Zubereitung ---------------- -->
 						<div class="form-group">
-							<label for="inputPreparation" class="col-md-2 control-label">Last
-								Name</label>
+							<label for="inputPreparation" class="col-md-2 control-label">Preparation</label>
 							<div class="col-md-10">
 								<input class="form-control" id="inputPreparation" type="text"
 									name="preparation" th:value="${recipe} ? ${recipe.preparation}">
 							</div>
 						</div>
 						<!-- --------------  User ---------------- -->
-						<div class="form-group">
-							<label for="inputUser" class="col-md-2 control-label">Last
-								Name</label>
-							<div class="col-md-10">
-								<input class="form-control" id="inputUser" type="text"
-									name="user" th:value="${recipe} ? ${recipe.user.name}">
-							</div>
-						</div>
+						
 
 						<!-- --------------  buttons ---------------- -->
 						<div class="form-group">
 							<div class="col-md-10 col-md-offset-2">
 								<button type="submit" class="btn btn-primary">Submit</button>
 								
-								<a href="listRecipes">
+								<a href="list">
 									<button type="button" class="btn btn-default">Cancel</button>
 								</a>
 							</div>

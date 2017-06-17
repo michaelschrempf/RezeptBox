@@ -12,9 +12,12 @@ import at.fh.swenga.dao.UserRepository;
 import at.fh.swenga.model.UserModel;
 import at.fh.swenga.model.UserRoleModel;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+@Transactional
 public class UserDetailsServiceImpl implements UserDetailsService{
     @Autowired
     private UserRepository userRepository;
@@ -24,7 +27,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserModel userModel = userRepository.findByUsername(username);
       
-        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         for (UserRoleModel role : userModel.getRoles()){
             grantedAuthorities.add(new SimpleGrantedAuthority(role.getRole()));
         }
