@@ -83,25 +83,17 @@ public class RecipeController {
 	 */
 
 	@RequestMapping("/deleteRecipe")
-	public String delete(Model model, @RequestParam int id) {
-		boolean isRemoved = (recipeRepository.removeByIdRecipe(id) != null);
+	public String deleteRecipe(Model model, @RequestParam int id, Principal principal) {
+		recipeRepository.delete(id);
 
-		if (isRemoved) {
-			model.addAttribute("warningMessage", "Recipe " + id + " deleted");
-		} else {
-			model.addAttribute("errorMessage", "There is no Recipe " + id);
-		}
-
-		// Multiple ways to "forward" to another Method
-		// return "forward:/listRecipes";
-		return "index";
+		return "forward:list";
 	}
 
-	/*@RequestMapping("/searchRecipe")
+	@RequestMapping("/searchRecipe")
 	public String search(Model model, @RequestParam String searchString) {
-		model.addAttribute("recipes", recipeRepository.getFilteredRecipes(searchString));
+		model.addAttribute("recipes", recipeRepository.findByName(searchString));
 		return "index";
-	}*/
+	}
 
 	@RequestMapping(value = "/addRecipe", method = RequestMethod.GET)
 	public String showAddRecipeForm(Model model) {
@@ -124,9 +116,9 @@ public class RecipeController {
 			model.addAttribute("errorMessage", errorMessage);
 			return "forward:/list";
 		}
-		RecipeModel recipe = recipeRepository.findByName(newRecipeModel.getName());
+		List<RecipeModel> recipe = recipeRepository.findByName(newRecipeModel.getName());
 
-		if (recipe != null) {
+		if (recipe.size() > 0) {
 			model.addAttribute("errorMessage", "Recipe already exists!<br>");
 		} else {
 			
@@ -139,7 +131,7 @@ public class RecipeController {
 
 	
 	@RequestMapping(value = "/editRecipe", method = RequestMethod.GET)
-	public String showChangeRecipeForm(Model model, @RequestParam int id) {
+	public String showChangeRecipeForm(Model model, @RequestParam int id, Principal principal) {
 		RecipeModel recipe = recipeRepository.findByIdRecipe(id);
 		if (recipe != null) {
 			model.addAttribute("recipe", recipe);
@@ -151,8 +143,8 @@ public class RecipeController {
 	}
 
 	@RequestMapping(value = "/editRecipe", method = RequestMethod.POST)
-	public String changeRecipe(@Valid @ModelAttribute RecipeModel changedRecipeModel, BindingResult bindingResult,
-			Model model) {
+	public String changeRecipe(@Valid @ModelAttribute RecipeModel changedRecipeModel,@RequestParam int id, BindingResult bindingResult,
+			Model model, Principal principal) {
 
 		if (bindingResult.hasErrors()) {
 			String errorMessage = "";
@@ -163,16 +155,16 @@ public class RecipeController {
 			return "forward:/list";
 		}
 
-		RecipeModel recipe = recipeRepository.findByIdRecipe(changedRecipeModel.getIdRecipe());
+		RecipeModel recipe = recipeRepository.findByIdRecipe(id);
+		System.out.println(changedRecipeModel.getIdRecipe());
 
 		if (recipe == null) {
 			model.addAttribute("errorMessage", "Recipe does not exist!<br>");
 		} else {
-			recipe.setIdRecipe(changedRecipeModel.getIdRecipe());
 			recipe.setName(changedRecipeModel.getName());
 			recipe.setDescription(changedRecipeModel.getDescription());
 			recipe.setPreparation(changedRecipeModel.getPreparation());
-			recipe.setUsermodel(changedRecipeModel.getUsermodel());
+			recipeRepository.save(recipe);
 			model.addAttribute("message", "Changed recipe " + changedRecipeModel.getIdRecipe());
 		}
 

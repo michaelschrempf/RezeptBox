@@ -14,12 +14,17 @@
 	<div class="container" role="main">
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
-				<form class="form-horizontal" method="post" th:action="${recipe} ? @{/editRecipe(id=${recipe.id})} : @{addRecipe}">
+				<form class="form-horizontal" method="post"
+					th:action="${recipe} ? @{/editRecipe(id=${recipe.idRecipe})} : @{addRecipe}">
+					<input type="hidden" th:name="${_csrf.parameterName}"
+						th:value="${_csrf.token}" />
+
 					<fieldset>
-						<legend th:text="${recipe}? 'Change Recipe' : 'New Recipe'">New Recipe</legend>
+						<legend th:text="${recipe}? 'Change Recipe' : 'New Recipe'">New
+							Recipe</legend>
 
 						<!--  ----------------  ssn ---------------- -->
-						
+
 
 						<!-- --------------  first Name ---------------- -->
 						<div class="form-group">
@@ -47,13 +52,13 @@
 							</div>
 						</div>
 						<!-- --------------  User ---------------- -->
-						
+
 
 						<!-- --------------  buttons ---------------- -->
 						<div class="form-group">
 							<div class="col-md-10 col-md-offset-2">
 								<button type="submit" class="btn btn-primary">Submit</button>
-								
+
 								<a href="list">
 									<button type="button" class="btn btn-default">Cancel</button>
 								</a>
