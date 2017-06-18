@@ -124,6 +124,13 @@ public class RecipeController {
 			model.addAttribute("errorMessage", errorMessage);
 			return "forward:/list";
 		}
+		if (recipeCategoryModel.getIdCategory() == 0)
+		{
+			String errorMessage = "";
+			errorMessage += "Recipe Category is invalid<br>";
+			model.addAttribute("errorMessage", errorMessage);
+			return "forward:/list";
+		}
 		List<RecipeModel> recipe3 = recipeRepository.findByName(newRecipeModel.getName());
 
 		if (recipe3.size() > 0) {
@@ -139,9 +146,13 @@ public class RecipeController {
 
 	
 	@RequestMapping(value = "/editRecipe", method = RequestMethod.GET)
-	public String showChangeRecipeForm(Model model, @RequestParam int id, Principal principal) {
+	public String showChangeRecipeForm(Model model, @RequestParam int id, Principal principal,@Valid @ModelAttribute("recipeCategoryModel") RecipeCategoryModel recipeCategoryModel) {
+		List<RecipeCategoryModel> recipeCategoryModels = recipeCategoryRepository.findAll();
+		model.addAttribute("recipeCategoryModels",recipeCategoryModels);
 		RecipeModel recipe = recipeRepository.findByIdRecipe(id);
 		if (recipe != null) {
+			recipeCategoryModel = recipe.getRecipeCategoryModel();
+			model.addAttribute("recipeCategoryModel", recipeCategoryModel);
 			model.addAttribute("recipe", recipe);
 			return "editRecipe";
 		} else {
@@ -152,13 +163,20 @@ public class RecipeController {
 
 	@RequestMapping(value = "/editRecipe", method = RequestMethod.POST)
 	public String changeRecipe(@Valid @ModelAttribute RecipeModel changedRecipeModel,@RequestParam int id, BindingResult bindingResult,
-			Model model, Principal principal) {
+			Model model, Principal principal,@Valid @ModelAttribute("recipeCategoryModel") RecipeCategoryModel recipeCategoryModel) {
 
 		if (bindingResult.hasErrors()) {
 			String errorMessage = "";
 			for (FieldError fieldError : bindingResult.getFieldErrors()) {
 				errorMessage += fieldError.getField() + " is invalid<br>";
 			}
+			model.addAttribute("errorMessage", errorMessage);
+			return "forward:/list";
+		}
+		if (recipeCategoryModel.getIdCategory() == 0)
+		{
+			String errorMessage = "";
+			errorMessage += "Recipe Category is invalid<br>";
 			model.addAttribute("errorMessage", errorMessage);
 			return "forward:/list";
 		}
@@ -172,8 +190,9 @@ public class RecipeController {
 			recipe.setName(changedRecipeModel.getName());
 			recipe.setDescription(changedRecipeModel.getDescription());
 			recipe.setPreparation(changedRecipeModel.getPreparation());
-			recipeRepository.save(recipe);
-			model.addAttribute("message", "Changed recipe " + recipe.getIdRecipe());
+			recipe.setRecipeCategoryModel(recipeCategoryRepository.findByIdCategory(recipeCategoryModel.getIdCategory()));
+			RecipeModel recipe2 = recipeRepository.save(recipe);
+			model.addAttribute("message", "Changed recipe " + recipe2.getIdRecipe());
 		}
 
 		return "forward:/list";

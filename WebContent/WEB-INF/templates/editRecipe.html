@@ -15,7 +15,7 @@
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
 				<form class="form-horizontal" method="post"
-					th:action="${recipe} ? @{/editRecipe(id=${recipe.idRecipe})} : @{addRecipe}" th:object="${recipeCategoryModel}">
+					th:action="${recipe} ? @{/editRecipe(id=${recipe.idRecipe})} : @{addRecipe}">
 					<input type="hidden" th:name="${_csrf.parameterName}"
 						th:value="${_csrf.token}" />
 
@@ -24,7 +24,7 @@
 							Recipe</legend>
 
 						<!--  ----------------  ssn ---------------- -->
-						
+
 
 
 						<!-- --------------  first Name ---------------- -->
@@ -58,16 +58,20 @@
 						<div class="form-group">
 							<label class="col-md-2 control-label">Recipe Category</label>
 							<div class="col-md-10">
-								<div >
-									<select class="form-control"  name="recipeCategoryModel" th:field="*{idCategory}">
-										<option th:each="recipeCategoryModel : ${recipeCategoryModels}"
-											th:value="${recipeCategoryModel.idCategory}"
-											th:text="${recipeCategoryModel.name}" />
+								<div>
+									<select class="form-control" name="recipeCategoryModel"
+										th:field="*{recipeCategoryModel.idCategory}">
+										  <option value="0"> ---- Select Recipe Category ---- </option>
+										<option
+											th:each="recipeCategoryModel1 : ${recipeCategoryModels}"
+											th:selected="${recipeCategoryModel} ? ${recipeCategoryModel.idCategory}"
+											th:value="${recipeCategoryModel1.idCategory}"
+											th:text="${recipeCategoryModel1.name}" />
 									</select>
 								</div>
 							</div>
 						</div>
-					
+
 
 						<!-- --------------  buttons ---------------- -->
 						<div class="form-group">
