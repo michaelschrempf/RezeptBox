@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -27,15 +28,22 @@ public class IngredientModel implements java.io.Serializable {
 	private static final long serialVersionUID = -2534382506428673043L;
 
 	@Id
-	@Column(name = "id_ingredient")
+	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int idIngredient;
 
 	@Column(nullable = false, length = 45)
 	private String name;
 
 	@Column(nullable = false)
 	private int menge;
+	
+	@Column
+	@ManyToMany
+	@JoinTable
+	private List<RecipeModel> recipeModels;
+	
+	
 
 	/*---------------------------------------------------------*/
 	/*@OneToMany(mappedBy="ingredientModel", fetch=FetchType.EAGER)
@@ -52,11 +60,17 @@ public class IngredientModel implements java.io.Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public IngredientModel(String name, int menge) {
+	
+
+	public IngredientModel(int idIngredient, String name, int menge, List<RecipeModel> recipeModels) {
 		super();
+		this.idIngredient = idIngredient;
 		this.name = name;
 		this.menge = menge;
+		this.recipeModels = recipeModels;
 	}
+
+
 
 	public String getName() {
 		return name;
@@ -73,5 +87,38 @@ public class IngredientModel implements java.io.Serializable {
 	public void setMenge(int menge) {
 		this.menge = menge;
 	}
+
+
+
+	public List<RecipeModel> getRecipeModels() {
+		return recipeModels;
+	}
+
+
+
+	public void setRecipeModels(List<RecipeModel> recipeModels) {
+		this.recipeModels = recipeModels;
+	}
+
+
+
+	public int getIdIngredient() {
+		return idIngredient;
+	}
+
+
+
+	public void setIdIngredient(int idIngredient) {
+		this.idIngredient = idIngredient;
+	}
+
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+	
+	
 
 }

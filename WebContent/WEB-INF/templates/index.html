@@ -8,8 +8,10 @@
 <div th:replace="~{includes/bootstrapCSS :: bootstrapCSS}" />
 </head>
 <body>
+
+
 	<div class="container" role="main">
-<div class="page-header">
+		<div class="page-header">
 			<h1>RezeptBox</h1>
 		</div>
 		<!--  Error message ----------------------------------------------------------- -->
@@ -18,8 +20,9 @@
 		<!--  Error message ----------------------------------------------------------- -->
 
 		<!--  Warning message ----------------------------------------------------------- -->
-		<div th:unless="${warningMessage} == null" th:utext="${warningMessage}"
-			class="alert alert-warning" role="warning"></div>
+		<div th:unless="${warningMessage} == null"
+			th:utext="${warningMessage}" class="alert alert-warning"
+			role="warning"></div>
 		<!--  Warning message ----------------------------------------------------------- -->
 
 		<!--   message ----------------------------------------------------------- -->
@@ -27,21 +30,59 @@
 			class="alert alert-success" role="warning"></div>
 		<!--   message ----------------------------------------------------------- -->
 
+
 		<nav th:replace="~{includes/searchNav :: search}"></nav>
 
+
 		<!--  2 simple buttons ----------------------------------------------------------- -->
+
+
+		<div class="row">
+			<div class="col-md-12">
+				<form class="form-horizontal" method="post" action="find">
+					<input type="hidden" th:name="${_csrf.parameterName}"
+						th:value="${_csrf.token}" />
+					<div class="form-group">
+						<label class="control-label col-md-2" for="searchType">Search:</label>
+						<div class="col-md-5">
+							<select name="searchType">
+								<option value="query1" selected="selected">Show all
+									HardDrives</option>
+								<option value="query2">Filter by Category</option>
+								<option value="query3">Filter by Cook</option>
+
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-md-2" for="searchString">SearchString:</label>
+						<div class="col-md-5">
+							<input type="text" name="searchString">
+						</div>
+						<div class="col-md-5">
+							<input class="btn btn-default" type="submit" value="Do it">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+
 		<div class="row">
 			<div class="col-md-4 col-md-offset-4">
 				<p>
 					<a href="addRecipe">
-						<button type="button" class="btn btn-success">Add new
-							Recipe</button>
-					</a> <a href="fillRecipeList">
-						<button type="button" class="btn btn-success">Fill List</button>
+						<button type="button" class="btn btn-success">Add Recipes</button>
 					</a>
 				</p>
 			</div>
 		</div>
+
+
+
+
+
 
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1">
@@ -50,9 +91,9 @@
 						<tr>
 							<th data-sortable="true">ID</th>
 							<th data-sortable="true">Name</th>
-							<th data-sortable="true">Description</th>
-							<th data-sortable="true">Preparation</th>
-							<th data-sortable="true">User Name</th>
+							<th data-sortable="true">Cook</th>
+							<th data-sortable="true">Category</th>
+
 							<th>Action</th>
 						</tr>
 					</thead>
@@ -61,22 +102,31 @@
 						<tr th:each="recipe : ${#request.getAttribute('recipes')}">
 							<td th:text="${recipe.idRecipe}"></td>
 							<td th:text="${recipe.name}"></td>
-							<td th:text="${recipe.description}"></td>
-							<td th:text="${recipe.preparation}"></td>
-							<td th:text="${recipe.usermodel.username}"></td>
-							<td> <span security:authorize="hasRole('ROLE_ADMIN')"> <a
-									th:href="@{/deleteRecipe(id=${recipe.idRecipe})}">
+							<td th:text="${recipe.userModel.username}"></td>
+							<td th:text="${recipe.recipeCategoryModel.name}"></td>
+
+							<td>
+								<div
+									th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+									<a th:href="@{/deleteRecipe(id=${recipe.idRecipe})}">
 										<button type="button" class="btn btn-xs btn-danger">
 											<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 											Delete
 										</button>
-								</a>
-							 <a th:href="@{/editRecipe(id=${recipe.idRecipe})}">
+									</a> <a th:href="@{/editRecipe(id=${recipe.idRecipe})}">
+										<button type="button" class="btn btn-xs btn-success">
+											<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+											Edit
+										</button>
+									</a>
+								</div> <a th:href="@{/showRecipe(id=${recipe.idRecipe})}">
 									<button type="button" class="btn btn-xs btn-success">
 										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-										Edit
+										Show Recipe
 									</button>
-							</a> </span> </td>
+							</a>
+
+							</td>
 						</tr>
 						<!--  list all items ----------------------------------------------------------- -->
 					</tbody>
@@ -84,13 +134,24 @@
 
 			</div>
 		</div>
+
+
+
+		<div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+			This will only be displayed if authenticated user has role
+			ROLE_ADMIN.</div>
+
 		<form th:action="@{/logout}" method="post">
-		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-		<!-- <a th:href="@{/logout}" class="btn btn-danger">Sign Out<a /> -->
-		<input class="btn btn-xs btn-danger" type="submit" value="Logout" />
+			<input type="hidden" th:name="${_csrf.parameterName}"
+				th:value="${_csrf.token}" />
+			<!-- <a th:href="@{/logout}" class="btn btn-danger">Sign Out<a /> -->
+			<input class="btn btn-xs btn-danger" type="submit" value="Logout" />
 		</form>
+
 	</div>
 	<!--  End of container -->
 	<div th:replace="~{includes/bootstrapJS :: bootstrapJS}" />
+
+
 </body>
 </html>

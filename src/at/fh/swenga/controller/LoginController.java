@@ -60,18 +60,7 @@ public class LoginController {
 	@Autowired
 	private UserValidator userValidator;
 
-	@RequestMapping(value = { "/", "list" })
-	public String index(Model model) {
-		
-		List<RecipeModel> recipes = recipeRepository.findAll();
-
-		model.addAttribute("recipes", recipes);
-		
-		
-		System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
-		
-		return "index";
-	}
+	
 
 	/*
 	 * @RequestMapping("/fillRecipeList")
@@ -113,7 +102,7 @@ public class LoginController {
 		if (bindingResult.hasErrors()) {
 			String errorMessage = "";
 			for (FieldError fieldError : bindingResult.getFieldErrors()) {
-				errorMessage += fieldError.getField() + " is invalid<br>";
+				errorMessage += fieldError.getField() + " is used<br>";
 			}
 			model.addAttribute("errorMessage", errorMessage);
 			return "registration";
@@ -128,6 +117,7 @@ public class LoginController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String handleLogin(Model model, String error, String logout, Principal principal) {
+		
 
 		if (error != null)
 			model.addAttribute("error", "Your username and password is invalid.");

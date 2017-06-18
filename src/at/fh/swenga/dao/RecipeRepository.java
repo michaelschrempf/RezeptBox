@@ -35,6 +35,17 @@ public interface RecipeRepository extends JpaRepository<RecipeModel, Integer>{
 	@Transactional
     public List<RecipeModel> findByName(String name);
 	
+	@Transactional
+	public List<RecipeModel> doANameSearchWithLike(@Param("search")String searchString);
+	
+	@Transactional
+	public List<RecipeModel> findByRecipeCategoryModelName(String searchString);
+	
+	@Transactional
+	public List<RecipeModel> findByUserModelUsername(String searchString);
+
+	
+	
 	
 	
 	

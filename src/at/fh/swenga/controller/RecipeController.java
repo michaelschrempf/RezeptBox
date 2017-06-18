@@ -1,6 +1,7 @@
 package at.fh.swenga.controller;
 
 import java.security.Principal;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -68,7 +69,20 @@ public class RecipeController {
 
 
 
-	
+	@RequestMapping(value = { "/", "list" })
+	public String index(Model model) {
+		
+		
+		
+		List<RecipeModel> recipes = recipeRepository.findAll();
+
+		model.addAttribute("recipes", recipes);
+		
+		
+		System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
+		
+		return "index";
+	}
 
 	/*
 	 * @RequestMapping("/fillRecipeList")
@@ -95,13 +109,48 @@ public class RecipeController {
 
 		return "forward:list";
 	}
-
-	@RequestMapping("/searchRecipe")
-	public String search(Model model, @RequestParam String searchString) {
-		model.addAttribute("recipes", recipeRepository.findByName(searchString));
-		return "index";
+	
+	@RequestMapping("/showRecipe")
+	public String showRecipe(Model model, @RequestParam int id) {
+		model.addAttribute("recipes", recipeRepository.findByIdRecipe(id));
+		return "showRecipe";
 	}
 
+	@RequestMapping("/searchRecipes")
+	public String searchRecipes(Model model, @RequestParam String searchString) {
+		model.addAttribute("recipes", recipeRepository.doANameSearchWithLike("%"+searchString+"%"));
+		return "index";
+	}
+	
+	@RequestMapping("/find")
+	public String findRecipes(Model model, @RequestParam String searchString, @RequestParam String searchType) {
+		List<RecipeModel> recipes = null;
+		int count=0;
+
+		switch (searchType) {
+		case "query1":
+			recipes = recipeRepository.findAll();
+			break;
+		case "query2":
+			recipes = recipeRepository.findByRecipeCategoryModelName(searchString);
+			break;
+		case "query3":
+			recipes = recipeRepository.findByUserModelUsername(searchString);
+			break;
+		
+		
+
+		default:
+			recipes = recipeRepository.findAll();
+		}
+		
+		model.addAttribute("recipes", recipes);
+
+		
+		return "index";
+	}
+	
+	
 	@RequestMapping(value = "/addRecipe", method = RequestMethod.GET)
 	public String showAddRecipeForm(Model model,@Valid @ModelAttribute("recipeCategoryModel") RecipeCategoryModel recipeCategoryModel) {
 		List<RecipeCategoryModel> recipeCategoryModels = recipeCategoryRepository.findAll();
@@ -113,7 +162,7 @@ public class RecipeController {
 	public String addRecipe(@Valid @ModelAttribute RecipeModel newRecipeModel ,@Valid @ModelAttribute("recipeCategoryModel") RecipeCategoryModel recipeCategoryModel, BindingResult bindingResult,
 			Model model, Principal principal) {
 		newRecipeModel.setRecipeCategoryModel(recipeCategoryRepository.findByIdCategory(recipeCategoryModel.getIdCategory()));
-		newRecipeModel.setUsermodel(userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
+		newRecipeModel.setUserModel(userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
 		System.out.println(newRecipeModel.getIdRecipe());
 
 		if (bindingResult.hasErrors()) {
@@ -124,6 +173,14 @@ public class RecipeController {
 			model.addAttribute("errorMessage", errorMessage);
 			return "forward:/list";
 		}
+		if(newRecipeModel.getUserModel() == null)
+		{
+			String errorMessage = "";
+			errorMessage += "Username is invalid<br>";
+			model.addAttribute("errorMessage", errorMessage);
+			
+			return "forward:/login";
+		}
 		if (recipeCategoryModel.getIdCategory() == 0)
 		{
 			String errorMessage = "";
@@ -131,6 +188,7 @@ public class RecipeController {
 			model.addAttribute("errorMessage", errorMessage);
 			return "forward:/list";
 		}
+		
 		List<RecipeModel> recipe3 = recipeRepository.findByName(newRecipeModel.getName());
 
 		if (recipe3.size() > 0) {
@@ -147,6 +205,9 @@ public class RecipeController {
 	
 	@RequestMapping(value = "/editRecipe", method = RequestMethod.GET)
 	public String showChangeRecipeForm(Model model, @RequestParam int id, Principal principal,@Valid @ModelAttribute("recipeCategoryModel") RecipeCategoryModel recipeCategoryModel) {
+		
+
+		
 		List<RecipeCategoryModel> recipeCategoryModels = recipeCategoryRepository.findAll();
 		model.addAttribute("recipeCategoryModels",recipeCategoryModels);
 		RecipeModel recipe = recipeRepository.findByIdRecipe(id);

@@ -1,5 +1,6 @@
 package at.fh.swenga.model;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -11,10 +12,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
+
+
+
+@NamedQueries({
+	@NamedQuery(name = "RecipeModel.doANameSearchWithLike", 
+			query = "select e from RecipeModel e where e.name like :search")
+})
 
 @Entity
 @Table
@@ -47,6 +59,11 @@ public class RecipeModel implements java.io.Serializable {
 	@JoinColumn
 	private RecipeCategoryModel recipeCategoryModel;
 	
+	@Column
+	@ManyToMany
+    @JoinTable
+	private List<IngredientModel> ingredientModels;
+	
 	/*@OneToMany(mappedBy="receptmodel", fetch=FetchType.EAGER)
 	private Set<LikeModel> likes;*/
 	
@@ -67,12 +84,10 @@ public class RecipeModel implements java.io.Serializable {
 
 	
 
-	
-
 
 
 	public RecipeModel(int idRecipe, String name, String description, String preparation, long version,
-			UserModel userModel, RecipeCategoryModel recipeCategoryModel) {
+			UserModel userModel, RecipeCategoryModel recipeCategoryModel, List<IngredientModel> ingredientModels) {
 		super();
 		this.idRecipe = idRecipe;
 		this.name = name;
@@ -81,10 +96,8 @@ public class RecipeModel implements java.io.Serializable {
 		this.version = version;
 		this.userModel = userModel;
 		this.recipeCategoryModel = recipeCategoryModel;
+		this.ingredientModels = ingredientModels;
 	}
-
-
-
 
 
 
@@ -120,57 +133,61 @@ public class RecipeModel implements java.io.Serializable {
 	public void setPreparation(String preparation) {
 		this.preparation = preparation;
 	}
-	public UserModel getUsermodel() {
+	public UserModel getUserModel() {
 		return userModel;
 	}
 
-	public void setUsermodel(UserModel userModel) {
+	public void setUserModel(UserModel userModel) {
 		this.userModel = userModel;
 	}
 
 
 
-
-
-
-
 	public RecipeCategoryModel getRecipeCategoryModel() {
 		return recipeCategoryModel;
 	}
 
 
 
-
-
-
-
 	public void setRecipeCategoryModel(RecipeCategoryModel recipeCategoryModel) {
 		this.recipeCategoryModel = recipeCategoryModel;
 	}
+
+
+
+
+
+	public List<IngredientModel> getIngredientModels() {
+		return ingredientModels;
+	}
+
+
+
+
+
+	public void setIngredientModels(List<IngredientModel> ingredientModels) {
+		this.ingredientModels = ingredientModels;
+	}
+
+
+
+
+
+	public long getVersion() {
+		return version;
+	}
+
+
+
+
+
+	public void setVersion(long version) {
+		this.version = version;
+	}
+	
+	
 	
 	
 
-	/*public Set<LikeModel> getLikes() {
-		return likes;
-	}
-
-	public void setLikes(Set<LikeModel> likes) {
-		this.likes = likes;
-	}*/
-/*
-	public RecipeCategoryModel getRecipeCategoryModel() {
-		return recipeCategoryModel;
-	}
-
-	public void setRecipeCategoryModel(RecipeCategoryModel recipeCategoryModel) {
-		this.recipeCategoryModel = recipeCategoryModel;
-	}
-*/
-	/*public Set<ReceptIngredientModel> getReceptingredients() {
-		return receptingredients;
-	}
-
-	public void setReceptingredients(Set<ReceptIngredientModel> receptingredients) {
-		this.receptingredients = receptingredients;
-	}*/
+	
 }
