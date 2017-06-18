@@ -1,5 +1,6 @@
 package at.fh.swenga.model;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -22,11 +23,8 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 
-
 @NamedQueries({
-	@NamedQuery(name = "RecipeModel.doANameSearchWithLike", 
-			query = "select e from RecipeModel e where e.name like :search")
-})
+		@NamedQuery(name = "RecipeModel.doANameSearchWithLike", query = "select e from RecipeModel e where e.name like :search") })
 
 @Entity
 @Table
@@ -50,44 +48,43 @@ public class RecipeModel implements java.io.Serializable {
 	@Version
 	long version;
 
-	/*Realtionships*/
+	/* Realtionships */
 	@ManyToOne
 	@JoinColumn
 	private UserModel userModel;
-	
+
 	@ManyToOne
-	@JoinColumn
 	private RecipeCategoryModel recipeCategoryModel;
-	
+
 	@Column
-	@ManyToMany
-    @JoinTable
-	private List<IngredientModel> ingredientModels;
-	
-	/*@OneToMany(mappedBy="receptmodel", fetch=FetchType.EAGER)
-	private Set<LikeModel> likes;*/
-	
-	/*@OneToMany(mappedBy="receptingredientmodel", fetch=FetchType.EAGER)
-	private Set<ReceptIngredientModel> receptingredients;
-	*/
+	@ManyToMany(fetch=FetchType.EAGER)
+	@JoinTable(name = "recipemodel_ingredientmodel")
+	private Set<IngredientModel> ingredientModels;
+
 	/*
-	@ManyToOne (cascade = CascadeType.PERSIST)
-	@JoinColumn(name="recipeCategoryModel_fk")
-	RecipeCategoryModel recipeCategoryModel;
-	
-*/	
+	 * @OneToMany(mappedBy="receptmodel", fetch=FetchType.EAGER) private
+	 * Set<LikeModel> likes;
+	 */
+
+	/*
+	 * @OneToMany(mappedBy="receptingredientmodel", fetch=FetchType.EAGER)
+	 * private Set<ReceptIngredientModel> receptingredients;
+	 */
+	/*
+	 * @ManyToOne (cascade = CascadeType.PERSIST)
+	 * 
+	 * @JoinColumn(name="recipeCategoryModel_fk") RecipeCategoryModel
+	 * recipeCategoryModel;
+	 * 
+	 */
 	/*-----------------------*/
 	public RecipeModel() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	
-
-
-
 	public RecipeModel(int idRecipe, String name, String description, String preparation, long version,
-			UserModel userModel, RecipeCategoryModel recipeCategoryModel, List<IngredientModel> ingredientModels) {
+			UserModel userModel, RecipeCategoryModel recipeCategoryModel, Set<IngredientModel> ingredientModels) {
 		super();
 		this.idRecipe = idRecipe;
 		this.name = name;
@@ -98,9 +95,6 @@ public class RecipeModel implements java.io.Serializable {
 		this.recipeCategoryModel = recipeCategoryModel;
 		this.ingredientModels = ingredientModels;
 	}
-
-
-
 
 	public int getIdRecipe() {
 		return idRecipe;
@@ -133,6 +127,7 @@ public class RecipeModel implements java.io.Serializable {
 	public void setPreparation(String preparation) {
 		this.preparation = preparation;
 	}
+
 	public UserModel getUserModel() {
 		return userModel;
 	}
@@ -141,53 +136,35 @@ public class RecipeModel implements java.io.Serializable {
 		this.userModel = userModel;
 	}
 
-
-
 	public RecipeCategoryModel getRecipeCategoryModel() {
 		return recipeCategoryModel;
 	}
-
-
 
 	public void setRecipeCategoryModel(RecipeCategoryModel recipeCategoryModel) {
 		this.recipeCategoryModel = recipeCategoryModel;
 	}
 
-
-
-
-
-	public List<IngredientModel> getIngredientModels() {
+	public Set<IngredientModel> getIngredientModels() {
 		return ingredientModels;
 	}
 
-
-
-
-
-	public void setIngredientModels(List<IngredientModel> ingredientModels) {
+	public void setIngredientModels(Set<IngredientModel> ingredientModels) {
 		this.ingredientModels = ingredientModels;
 	}
-
-
-
-
 
 	public long getVersion() {
 		return version;
 	}
 
-
-
-
-
 	public void setVersion(long version) {
 		this.version = version;
 	}
 	
-	
-	
-	
+	public void addIngredient(IngredientModel ingredient) {
+		if (ingredientModels == null) {
+			ingredientModels= new HashSet<IngredientModel>();
+		}
+		ingredientModels.add(ingredient);
+	}
 
-	
 }

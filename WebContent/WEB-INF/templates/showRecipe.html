@@ -64,7 +64,7 @@
 							<td th:text="${recipe.name}"></td>
 							<td th:text="${recipe.description}"></td>
 							<td th:text="${recipe.preparation}"></td>
-							<td th:text="${recipe.usermodel.username}"></td>
+							<td th:text="${recipe.userModel.username}"></td>
 							<td>
 								<div
 									th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">

@@ -52,6 +52,9 @@
 									name="preparation" th:value="${recipe} ? ${recipe.preparation}">
 							</div>
 						</div>
+
+
+
 						<!-- --------------  Category ---------------- -->
 						<!--th:field="${recipe.recipeCategoryModel}" -->
 
@@ -61,7 +64,7 @@
 								<div>
 									<select class="form-control" name="recipeCategoryModel"
 										th:field="*{recipeCategoryModel.idCategory}">
-										  <option value="0"> ---- Select Recipe Category ---- </option>
+										<option value="0">---- Select Recipe Category ----</option>
 										<option
 											th:each="recipeCategoryModel1 : ${recipeCategoryModels}"
 											th:selected="${recipeCategoryModel} ? ${recipeCategoryModel.idCategory}"
@@ -71,6 +74,25 @@
 								</div>
 							</div>
 						</div>
+
+						<div class="form-group">
+							<label class="col-md-2 control-label">Add Ingredient</label>
+							<div class="col-md-10">
+								<div>
+									<select class="form-control" name="ingredientModels"
+										th:field="*{ingredientModel.idIngredient}">
+										<option value="0">---- Select Recipe Category ----</option>
+										<option th:each="ingredient : ${ingredientModels}"
+											th:selected="${ingredientModel} ? ${ingredientModel.idIngredient}"
+											th:value="${ingredient.idIngredient}"
+											th:text="${ingredient.name}" />
+									</select>
+								</div>
+							</div>
+						</div>
+						<!-- ---------------------------------------------------------------------- -->
+
+
 
 
 						<!-- --------------  buttons ---------------- -->
@@ -88,30 +110,57 @@
 			</div>
 		</div>
 
-	</div>
-	<!--  End of container -->
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+				<table data-toggle="table" class="table table-striped">
+					<thead>
+						<tr>
+							<th data-sortable="true">ID</th>
+							<th data-sortable="true">Name</th>
+
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!--  list all items ----------------------------------------------------------- -->
+						<tr
+							th:each="ingredients1 : ${ingredients}">
+							<td th:text="${ingredients1.idIngredient}"></td>
+							<td th:text="${ingredients1.name}"></td>
 
 
-	<div th:replace="~{includes/bootstrapJS :: bootstrapJS}" />
 
-	<!-- JS for Datetime picker -->
 
-	<script type="text/javascript"
-		src="http://www.malot.fr/bootstrap-datetimepicker/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+						</tr>
+						<!--  list all items ----------------------------------------------------------- -->
+					</tbody>
+				</table>
 
-	<script>
-		$(function() {
+			</div>
+		</div>
 
-			$(".form_datetime").datetimepicker({
-				format : "dd.mm.yyyy",
-				autoclose : true,
-				todayBtn : true,
-				pickerPosition : "bottom-left",
-				minView : 2
+
+
+
+		<div th:replace="~{includes/bootstrapJS :: bootstrapJS}" />
+
+		<!-- JS for Datetime picker -->
+
+		<script type="text/javascript"
+			src="http://www.malot.fr/bootstrap-datetimepicker/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+
+		<script>
+			$(function() {
+
+				$(".form_datetime").datetimepicker({
+					format : "dd.mm.yyyy",
+					autoclose : true,
+					todayBtn : true,
+					pickerPosition : "bottom-left",
+					minView : 2
+				});
+
 			});
-
-		});
-	</script>
-
+		</script>
 </body>
 </html>

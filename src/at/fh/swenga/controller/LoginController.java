@@ -81,12 +81,6 @@ public class LoginController {
 	 * return "forward:list"; }
 	 */
 
-	@ExceptionHandler(Exception.class)
-	public String handleAllException(Exception ex) {
-
-		return "error";
-
-	}
 
 	@RequestMapping(value = "/registration", method = RequestMethod.GET)
 	public String showRegistrationForm(Model model) {

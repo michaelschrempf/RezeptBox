@@ -2,6 +2,7 @@ package at.fh.swenga.dao;
  
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,6 +16,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import at.fh.swenga.model.IngredientModel;
 import at.fh.swenga.model.RecipeModel;
 import at.fh.swenga.model.UserModel;
 import at.fh.swenga.model.UserRoleModel;
@@ -43,7 +45,6 @@ public interface RecipeRepository extends JpaRepository<RecipeModel, Integer>{
 	
 	@Transactional
 	public List<RecipeModel> findByUserModelUsername(String searchString);
-
 	
 	
 	

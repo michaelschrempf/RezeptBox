@@ -35,13 +35,9 @@ public class IngredientModel implements java.io.Serializable {
 	@Column(nullable = false, length = 45)
 	private String name;
 
-	@Column(nullable = false)
-	private int menge;
-	
 	@Column
-	@ManyToMany
-	@JoinTable
-	private List<RecipeModel> recipeModels;
+	@ManyToMany(mappedBy="ingredientModels", fetch=FetchType.EAGER)
+	private Set<RecipeModel> recipeModel;
 	
 	
 
@@ -62,12 +58,11 @@ public class IngredientModel implements java.io.Serializable {
 
 	
 
-	public IngredientModel(int idIngredient, String name, int menge, List<RecipeModel> recipeModels) {
+	public IngredientModel(int idIngredient, String name,  Set<RecipeModel> recipeModel) {
 		super();
 		this.idIngredient = idIngredient;
 		this.name = name;
-		this.menge = menge;
-		this.recipeModels = recipeModels;
+		this.recipeModel = recipeModel;
 	}
 
 
@@ -80,24 +75,15 @@ public class IngredientModel implements java.io.Serializable {
 		this.name = name;
 	}
 
-	public int getMenge() {
-		return menge;
-	}
-
-	public void setMenge(int menge) {
-		this.menge = menge;
+	
+	public Set<RecipeModel> getRecipeModel() {
+		return recipeModel;
 	}
 
 
 
-	public List<RecipeModel> getRecipeModels() {
-		return recipeModels;
-	}
-
-
-
-	public void setRecipeModels(List<RecipeModel> recipeModels) {
-		this.recipeModels = recipeModels;
+	public void setRecipeModel(Set<RecipeModel> recipeModel) {
+		this.recipeModel = recipeModel;
 	}
 
 

@@ -19,7 +19,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "UserRoleModel")
-public class UserRoleModel implements java.io.Serializable{
+public class UserRoleModel implements java.io.Serializable {
 private static final long serialVersionUID = 8098173157518993615L;
 
 	@Id
@@ -28,9 +28,8 @@ private static final long serialVersionUID = 8098173157518993615L;
 	private Integer userRoleId;
 	
 	@Column
-	@ManyToMany
-	@JoinTable
-	private List<UserModel> users;
+	@ManyToMany(mappedBy="roles")
+	private Set<UserModel> users;
 	
 	@Column(name = "role", nullable = false, length = 45)
 	private String role;
@@ -38,7 +37,7 @@ private static final long serialVersionUID = 8098173157518993615L;
 	
 
 
-	public UserRoleModel(Integer userRoleId, List<UserModel> users, String role) {
+	public UserRoleModel(Integer userRoleId, Set<UserModel> users, String role) {
 		super();
 		this.userRoleId = userRoleId;
 		this.users = users;
@@ -63,11 +62,11 @@ private static final long serialVersionUID = 8098173157518993615L;
 	}
 
 	
-	public List<UserModel> getUsers() {
+	public Set<UserModel> getUsers() {
 	        return users;
 	 }
 
-	public void setUsers(List<UserModel> users) {
+	public void setUsers(Set<UserModel> users) {
 		this.users = users;
 	}
 

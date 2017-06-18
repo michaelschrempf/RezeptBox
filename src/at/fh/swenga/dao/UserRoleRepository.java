@@ -16,8 +16,8 @@ import at.fh.swenga.model.UserRoleModel;
 public interface UserRoleRepository extends JpaRepository<UserRoleModel, Integer> {
 
 	@Transactional
-	public List<UserRoleModel> findByUserRoleId(Integer roleId);
+	public Set<UserRoleModel> findByUserRoleId(Integer roleId);
 	@Transactional
-	public List<UserRoleModel> findByRole(String role);
+	public Set<UserRoleModel> findByRole(String role);
 	
 }

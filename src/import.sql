@@ -4,3 +4,9 @@ INSERT INTO mydatabase.recipecategorymodel (idCategory,name,version) VALUES (1,'
 INSERT INTO mydatabase.recipecategorymodel (idCategory,name,version) VALUES (2,'Sweets',0);
 INSERT INTO mydatabase.recipecategorymodel (idCategory,name,version) VALUES (3,'Cocktails',0);
 INSERT INTO mydatabase.recipecategorymodel (idCategory,name,version) VALUES (4,'Meat Dishes',0);
+INSERT INTO mydatabase.ingredientmodel (idIngredient,name) VALUES (1,'Zucker');
+INSERT INTO mydatabase.ingredientmodel (idIngredient,name) VALUES (2,'Mehl');
+INSERT INTO mydatabase.ingredientmodel (idIngredient,name) VALUES (3,'Zitrone');
+INSERT INTO mydatabase.ingredientmodel (idIngredient,name) VALUES (4,'Salz');
+INSERT INTO mydatabase.ingredientmodel (idIngredient,name) VALUES (5,'Pfeffer');
+INSERT INTO mydatabase.ingredientmodel (idIngredient,name) VALUES (6,'Milch');

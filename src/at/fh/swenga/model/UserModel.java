@@ -50,12 +50,12 @@ public class UserModel implements java.io.Serializable {
 	
 	@Column
 	@OneToMany(mappedBy = "userModel", fetch = FetchType.EAGER)
-	private List<RecipeModel> recipes;
+	private Set<RecipeModel> recipes;
 	
 	@Column
-	@ManyToMany
-    @JoinTable
-	private List<UserRoleModel> roles;
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "usermodel_userrolemodel")
+	private Set<UserRoleModel> roles;
 
 	
 
@@ -66,7 +66,7 @@ public class UserModel implements java.io.Serializable {
 	 * @OneToMany(mappedBy="userModel", fetch=FetchType.EAGER) private
 	 * Set<CommentModel> comments;
 	 */
-	public UserModel(int idUser, String firstName, String lastName, String username, String password, List<UserRoleModel> roles, List<RecipeModel> recipes) {
+	public UserModel(int idUser, String firstName, String lastName, String username, String password, Set<UserRoleModel> roles, Set<RecipeModel> recipes) {
 		super();
 		this.idUser = idUser;
 		this.firstName = firstName;
@@ -90,19 +90,19 @@ public class UserModel implements java.io.Serializable {
 		this.idUser = idUser;
 	}
 
-	public List<RecipeModel> getRecipes() {
+	public Set<RecipeModel> getRecipes() {
 		return recipes;
 	}
 
-	public void setRecipes(List<RecipeModel> recipes) {
+	public void setRecipes(Set<RecipeModel> recipes) {
 		this.recipes = recipes;
 	}
 
-    public List<UserRoleModel> getRoles() {
+    public Set<UserRoleModel> getRoles() {
         return roles;
     }
 
-	public void setRoles(List<UserRoleModel> list) {
+	public void setRoles(Set<UserRoleModel> list) {
 		this.roles = list;
 	}
 

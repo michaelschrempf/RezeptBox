@@ -30,7 +30,7 @@ public class RecipeCategoryModel implements java.io.Serializable {
 	
 	@Column
 	@OneToMany(mappedBy = "recipeCategoryModel", fetch = FetchType.EAGER)
-	private List<RecipeModel> recipeModel;
+	private Set<RecipeModel> recipeModel;
 	
 	
 	
@@ -44,7 +44,7 @@ public class RecipeCategoryModel implements java.io.Serializable {
 
 	
 
-	public RecipeCategoryModel(int idCategory, String name, List<RecipeModel> recipeModel, long version) {
+	public RecipeCategoryModel(int idCategory, String name, Set<RecipeModel> recipeModel, long version) {
 		super();
 		this.idCategory = idCategory;
 		this.name = name;
@@ -74,13 +74,13 @@ public class RecipeCategoryModel implements java.io.Serializable {
 
 
 
-	public List<RecipeModel> getRecipeModel() {
+	public Set<RecipeModel> getRecipeModel() {
 		return recipeModel;
 	}
 
 
 
-	public void setRecipeModel(List<RecipeModel> recipeModel) {
+	public void setRecipeModel(Set<RecipeModel> recipeModel) {
 		this.recipeModel = recipeModel;
 	}
 

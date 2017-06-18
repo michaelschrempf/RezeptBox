@@ -1,8 +1,10 @@
 package at.fh.swenga.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -33,6 +35,7 @@ import at.fh.swenga.dao.RecipeRepository;
 import at.fh.swenga.dao.UserRepository;
 import at.fh.swenga.dao.UserRoleRepository;
 import at.fh.swenga.manager.UserManager;
+import at.fh.swenga.model.IngredientModel;
 import at.fh.swenga.model.RecipeCategoryModel;
 import at.fh.swenga.model.RecipeModel;
 import at.fh.swenga.model.UserModel;
@@ -152,18 +155,25 @@ public class RecipeController {
 	
 	
 	@RequestMapping(value = "/addRecipe", method = RequestMethod.GET)
-	public String showAddRecipeForm(Model model,@Valid @ModelAttribute("recipeCategoryModel") RecipeCategoryModel recipeCategoryModel) {
-		List<RecipeCategoryModel> recipeCategoryModels = recipeCategoryRepository.findAll();
-		model.addAttribute("recipeCategoryModels",recipeCategoryModels);
+	public String showAddRecipeForm(Model model,@Valid @ModelAttribute("recipeCategoryModel") RecipeCategoryModel recipeCategoryModel,@Valid @ModelAttribute("ingredientModel") IngredientModel ingredientModel) {
+		model.addAttribute("recipeCategoryModels",recipeCategoryRepository.findAll());
+		model.addAttribute("ingredientModels",ingredientRepository.findAll());
+	
+
+
 		return "editRecipe";
 	}
 
 	@RequestMapping(value = "/addRecipe", method = RequestMethod.POST)
-	public String addRecipe(@Valid @ModelAttribute RecipeModel newRecipeModel ,@Valid @ModelAttribute("recipeCategoryModel") RecipeCategoryModel recipeCategoryModel, BindingResult bindingResult,
+	public String addRecipe(@Valid @ModelAttribute RecipeModel newRecipeModel ,@Valid @ModelAttribute("ingredientModel") IngredientModel ingredientModel ,@Valid @ModelAttribute("recipeCategoryModel") RecipeCategoryModel recipeCategoryModel, BindingResult bindingResult,
 			Model model, Principal principal) {
+		
 		newRecipeModel.setRecipeCategoryModel(recipeCategoryRepository.findByIdCategory(recipeCategoryModel.getIdCategory()));
 		newRecipeModel.setUserModel(userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
+		newRecipeModel.addIngredient(ingredientModel);
 		System.out.println(newRecipeModel.getIdRecipe());
+		System.out.println(newRecipeModel.getRecipeCategoryModel().getName());
+
 
 		if (bindingResult.hasErrors()) {
 			String errorMessage = "";
@@ -189,22 +199,20 @@ public class RecipeController {
 			return "forward:/list";
 		}
 		
-		List<RecipeModel> recipe3 = recipeRepository.findByName(newRecipeModel.getName());
-
-		if (recipe3.size() > 0) {
-			model.addAttribute("errorMessage", "Recipe already exists!<br>");
-		} else {
-			recipeRepository.save(newRecipeModel);
-			RecipeModel recipe2 = newRecipeModel;
-			model.addAttribute("message", "New recipe " + recipe2.getIdRecipe() + " added.");
-		}
+		
+		System.out.println(newRecipeModel.getName());
+		
+		recipeRepository.save(newRecipeModel);
+		RecipeModel recipe2 = newRecipeModel;
+		model.addAttribute("message", "New recipe " + recipe2.getIdRecipe() + " added.");
+		System.out.println(newRecipeModel.getName());
 
 		return "forward:/list";
 	}
 
 	
 	@RequestMapping(value = "/editRecipe", method = RequestMethod.GET)
-	public String showChangeRecipeForm(Model model, @RequestParam int id, Principal principal,@Valid @ModelAttribute("recipeCategoryModel") RecipeCategoryModel recipeCategoryModel) {
+	public String showEditRecipeForm(Model model, @RequestParam int id, Principal principal,@Valid @ModelAttribute("recipeCategoryModel") RecipeCategoryModel recipeCategoryModel,@Valid @ModelAttribute("ingredientModel") IngredientModel ingredientModel) {
 		
 
 		
@@ -215,6 +223,8 @@ public class RecipeController {
 			recipeCategoryModel = recipe.getRecipeCategoryModel();
 			model.addAttribute("recipeCategoryModel", recipeCategoryModel);
 			model.addAttribute("recipe", recipe);
+			model.addAttribute("ingredientModels",ingredientRepository.findAll());
+			model.addAttribute("ingredients",recipe.getIngredientModels());
 			return "editRecipe";
 		} else {
 			model.addAttribute("errorMessage", "Couldn't find recipe " + id);
@@ -223,8 +233,8 @@ public class RecipeController {
 	}
 
 	@RequestMapping(value = "/editRecipe", method = RequestMethod.POST)
-	public String changeRecipe(@Valid @ModelAttribute RecipeModel changedRecipeModel,@RequestParam int id, BindingResult bindingResult,
-			Model model, Principal principal,@Valid @ModelAttribute("recipeCategoryModel") RecipeCategoryModel recipeCategoryModel) {
+	public String editRecipe(@Valid @ModelAttribute RecipeModel changedRecipeModel,@RequestParam int id, BindingResult bindingResult,
+			Model model, Principal principal,@Valid @ModelAttribute("recipeCategoryModel") RecipeCategoryModel recipeCategoryModel,@Valid @ModelAttribute("ingredientModel") IngredientModel ingredientModel) {
 
 		if (bindingResult.hasErrors()) {
 			String errorMessage = "";
@@ -251,7 +261,9 @@ public class RecipeController {
 			recipe.setName(changedRecipeModel.getName());
 			recipe.setDescription(changedRecipeModel.getDescription());
 			recipe.setPreparation(changedRecipeModel.getPreparation());
+			recipe.addIngredient(ingredientModel);
 			recipe.setRecipeCategoryModel(recipeCategoryRepository.findByIdCategory(recipeCategoryModel.getIdCategory()));
+			
 			RecipeModel recipe2 = recipeRepository.save(recipe);
 			model.addAttribute("message", "Changed recipe " + recipe2.getIdRecipe());
 		}
@@ -259,13 +271,7 @@ public class RecipeController {
 		return "forward:/list";
 	}
 
-	@ExceptionHandler(Exception.class)
-	public String handleAllException(Exception ex) {
-
-		return "index";
-
-	}
-
+	
 	
 
 	
