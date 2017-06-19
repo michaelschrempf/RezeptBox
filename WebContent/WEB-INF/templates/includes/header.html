@@ -7,9 +7,9 @@
 				
 		<a href="searchRecipe" type="submit" class="btn btn-primary btn-lg">Search</a>
 				
-		<a href="login" type="submit" class="btn btn-primary btn-lg">Login/Register</a>
+		<a th:if="!${#authorization.expression('hasAnyRole(''ROLE_ADMIN'', ''ROLE_USER'')')}" href="login" type="submit" class="btn btn-primary btn-lg">Login/Register</a>
 	
-		<form th:action="@{/logout}" method="post">
+		<form th:if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'', ''ROLE_USER'')')}" th:action="@{/logout}" method="post">
 			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 				<!-- <a th:href="@{/logout}" class="btn btn-danger">Sign Out<a /> -->
 				<input class="btn btn-primary btn-lg" type="submit" value="Logout" style="float:right;" />
