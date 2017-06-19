@@ -24,9 +24,9 @@
 
 	<div class="btn-group">
 			
-		<a href="showRecipe" type="submit" class="btn btn-primary btn-lg">Show Recipes</a>
+		<a href="list" type="submit" class="btn btn-primary btn-lg">Show Recipes</a>
 				
-		<a href="addRecipe" type="submit" class="btn btn-primary btn-lg">Add Recipe</a>
+		<a th:if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'', ''ROLE_USER'')')}" href="addRecipe" type="submit" class="btn btn-primary btn-lg">Add Recipe</a>
 				
 		<a href="searchRecipe" type="submit" class="btn btn-primary btn-lg">Search</a>
 				
