@@ -10,24 +10,13 @@
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+
+<div th:replace="~{includes/header :: headerFrag}"></div>
+<br>
+
 	<form th:action="@{/login}" method="get">
 		<button class="btn btn-md btn-warning btn-block" type="Submit">Go To Login Page</button>
 	</form>	
-	
-	<!--  Error message ----------------------------------------------------------- -->
-		<div th:unless="${errorMessage} == null" th:utext="${errorMessage}"
-			class="alert alert-danger" role="alert"></div>
-		<!--  Error message ----------------------------------------------------------- -->
-
-		<!--  Warning message ----------------------------------------------------------- -->
-		<div th:unless="${warningMessage} == null" th:utext="${warningMessage}"
-			class="alert alert-warning" role="warning"></div>
-		<!--  Warning message ----------------------------------------------------------- -->
-
-		<!--   message ----------------------------------------------------------- -->
-		<div th:unless="${message} == null" th:utext="${message}"
-			class="alert alert-success" role="warning"></div>
-		<!--   message ----------------------------------------------------------- -->
 	
 	<div class="container">
 		<div class="row">

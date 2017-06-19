@@ -10,26 +10,11 @@
 <body>
 
 
+
 	<div class="container" role="main">
-		<div class="page-header">
-			<h1>RezeptBox</h1>
-		</div>
-		<!--  Error message ----------------------------------------------------------- -->
-		<div th:unless="${errorMessage} == null" th:utext="${errorMessage}"
-			class="alert alert-danger" role="alert"></div>
-		<!--  Error message ----------------------------------------------------------- -->
-
-		<!--  Warning message ----------------------------------------------------------- -->
-		<div th:unless="${warningMessage} == null"
-			th:utext="${warningMessage}" class="alert alert-warning"
-			role="warning"></div>
-		<!--  Warning message ----------------------------------------------------------- -->
-
-		<!--   message ----------------------------------------------------------- -->
-		<div th:unless="${message} == null" th:utext="${message}"
-			class="alert alert-success" role="warning"></div>
-		<!--   message ----------------------------------------------------------- -->
-
+		<div th:replace="~{includes/header :: headerFrag}"></div>
+		<br>
+		
 		<nav th:replace="~{includes/searchNav :: search}"></nav>
 
 		<!--  2 simple buttons ----------------------------------------------------------- -->
