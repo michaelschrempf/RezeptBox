@@ -38,14 +38,17 @@
 			<br/>
 			 
 			<input type="text" id="username" name="username"  th:placeholder="Username"
-				class="form-control" /> <br/> 
+				class="form-control"/> <br/> 
 			<input type="password"  th:placeholder="Password"
-				id="password" name="password" class="form-control" /> <br /> 
+				id="password" name="password" class="form-control"/> <br /> 
 				
 			<div align="center" th:if="${param.error}">
 				<p style="font-size: 20; color: #FF1C19;">Email or Password invalid, please verify</p>
 			</div>
-			<button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit" th:text="Login"></button>
+			<button class="btn btn-lg btn-primary btn-block" name="Submit" type="Submit">
+				<span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
+				Login
+			</button>
 		</form>
 	</div>
 </body>
