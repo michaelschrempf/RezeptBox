@@ -21,7 +21,7 @@
 
 
 
-		<div class="row">
+		<div th:if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'', ''ROLE_USER'')')}" class="row">
 			<div class="form-group col-md-10 col-md-offset-1">
 				<p>
 					<a href="addRecipe">
