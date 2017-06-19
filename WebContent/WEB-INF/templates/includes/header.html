@@ -1,8 +1,17 @@
 <div th:fragment="headerFrag" >
 
 <div class="page-header">
-	<h1>RezeptBox</h1>
+	<div class="row">
+		<div style="margin-top: 13px;">
+			<form th:if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'', ''ROLE_USER'')')}" th:action="@{/logout}" method="post">
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+					<!-- <a th:href="@{/logout}" class="btn btn-danger">Sign Out<a /> -->
+					<input class="btn btn-primary btn-lg" type="submit" value="Logout" style="float:right;" />
+			</form>
+		</div>
+		<h1>RezeptBox</h1>
 	</div>
+</div>
 	
 		<!--  Error message ----------------------------------------------------------- -->
 		<div th:unless="${errorMessage} == null" th:utext="${errorMessage}"
@@ -30,14 +39,10 @@
 				
 		<a href="searchRecipe" type="submit" class="btn btn-primary btn-lg">Search</a>
 				
-		<a th:if="!${#authorization.expression('hasAnyRole(''ROLE_ADMIN'', ''ROLE_USER'')')}" href="login" type="submit" class="btn btn-primary btn-lg">Login/Register</a>
-	
-		<form th:if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'', ''ROLE_USER'')')}" th:action="@{/logout}" method="post">
-			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-				<!-- <a th:href="@{/logout}" class="btn btn-danger">Sign Out<a /> -->
-				<input class="btn btn-primary btn-lg" type="submit" value="Logout" style="float:right;" />
-		</form>
-				
+		<a th:if="!${#authorization.expression('hasAnyRole(''ROLE_ADMIN'', ''ROLE_USER'')')}" href="login" type="submit" class="btn btn-primary btn-lg">Login/Register</a>		
+
+
 	</div>
+
 </div>
 <br>
