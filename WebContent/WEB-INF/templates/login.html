@@ -14,7 +14,10 @@
 
 <body>
 
-<div th:replace="~{includes/header :: headerFrag}"></div>
+
+	<div class="container" role="main">
+		<div th:replace="~{includes/header :: headerFrag}"></div>
+	</div>
 <br>
 
 	<form th:action="@{/registration}" method="get">
