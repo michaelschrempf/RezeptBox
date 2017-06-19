@@ -1,5 +1,6 @@
 package at.fh.swenga.model;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -16,6 +17,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "IngredientModel")
@@ -39,6 +41,10 @@ public class IngredientModel implements java.io.Serializable {
 	@ManyToMany(mappedBy="ingredientModels", fetch=FetchType.EAGER)
 	private Set<RecipeModel> recipeModel;
 	
+	@Column
+	@OneToMany(mappedBy = "ingredientModel", fetch = FetchType.EAGER)
+	private Set<QuantityUnitModel> quantityUnitModels;
+	
 	
 
 	/*---------------------------------------------------------*/
@@ -58,12 +64,22 @@ public class IngredientModel implements java.io.Serializable {
 
 	
 
-	public IngredientModel(int idIngredient, String name,  Set<RecipeModel> recipeModel) {
+	
+
+
+
+	public IngredientModel(int idIngredient, String name, Set<RecipeModel> recipeModel,
+			Set<QuantityUnitModel> quantityUnitModels) {
 		super();
 		this.idIngredient = idIngredient;
 		this.name = name;
 		this.recipeModel = recipeModel;
+		this.quantityUnitModels = quantityUnitModels;
 	}
+
+
+
+
 
 
 
@@ -97,11 +113,40 @@ public class IngredientModel implements java.io.Serializable {
 	public void setIdIngredient(int idIngredient) {
 		this.idIngredient = idIngredient;
 	}
+	
+	
+
+
+
+	public Set<QuantityUnitModel> getQuantityUnitModels() {
+		return quantityUnitModels;
+	}
+
+
+
+
+
+
+
+	public void setQuantityUnitModels(Set<QuantityUnitModel> quantityUnitModels) {
+		this.quantityUnitModels = quantityUnitModels;
+	}
+
+
+
+
 
 
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	
+	public void addQuantityUnitModel(QuantityUnitModel quantityUnitModel) {
+		if (quantityUnitModels==null) {
+			quantityUnitModels= new HashSet<QuantityUnitModel>();
+		}
+		quantityUnitModels.add(quantityUnitModel);
 	}
 	
 	

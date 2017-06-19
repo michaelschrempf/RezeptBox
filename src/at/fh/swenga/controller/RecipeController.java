@@ -115,8 +115,18 @@ public class RecipeController {
 	
 	@RequestMapping("/showRecipe")
 	public String showRecipe(Model model, @RequestParam int id) {
-		model.addAttribute("recipes", recipeRepository.findByIdRecipe(id));
-		return "showRecipe";
+		
+		RecipeModel recipe = recipeRepository.findByIdRecipe(id);
+		if (recipe != null) {
+			model.addAttribute("recipes", recipeRepository.findByIdRecipe(id));
+
+			model.addAttribute("ingredientModels",ingredientRepository.findAll());
+			model.addAttribute("ingredients",recipe.getIngredientModels());
+			return "showRecipe";
+		} else {
+			model.addAttribute("errorMessage", "Couldn't find recipe " + id);
+			return "forward:/list";
+		}
 	}
 
 	@RequestMapping("/searchRecipes")
@@ -165,12 +175,17 @@ public class RecipeController {
 	}
 
 	@RequestMapping(value = "/addRecipe", method = RequestMethod.POST)
-	public String addRecipe(@Valid @ModelAttribute RecipeModel newRecipeModel ,@Valid @ModelAttribute("ingredientModel") IngredientModel ingredientModel ,@Valid @ModelAttribute("recipeCategoryModel") RecipeCategoryModel recipeCategoryModel, BindingResult bindingResult,
-			Model model, Principal principal) {
+	public String addRecipe(@Valid @ModelAttribute RecipeModel newRecipeModel ,
+			@Valid @ModelAttribute("ingredientModel") IngredientModel ingredientModel ,
+			@Valid @ModelAttribute("recipeCategoryModel") RecipeCategoryModel recipeCategoryModel,
+			BindingResult bindingResult,
+			Model model, Principal principal,
+			@RequestParam(value="action", required=true) String action) {
 		
 		newRecipeModel.setRecipeCategoryModel(recipeCategoryRepository.findByIdCategory(recipeCategoryModel.getIdCategory()));
 		newRecipeModel.setUserModel(userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
-		newRecipeModel.addIngredient(ingredientModel);
+		if(ingredientModel.getIdIngredient() > 0){
+		newRecipeModel.addIngredient(ingredientModel);}
 		System.out.println(newRecipeModel.getIdRecipe());
 		System.out.println(newRecipeModel.getRecipeCategoryModel().getName());
 
@@ -200,13 +215,20 @@ public class RecipeController {
 		}
 		
 		
+		
 		System.out.println(newRecipeModel.getName());
 		
 		recipeRepository.save(newRecipeModel);
 		RecipeModel recipe2 = newRecipeModel;
 		model.addAttribute("message", "New recipe " + recipe2.getIdRecipe() + " added.");
 		System.out.println(newRecipeModel.getName());
-
+		
+		if(action.equals("addIngredient"))
+		{
+			return "redirect:/editRecipe?id="+recipe2.getIdRecipe();
+		}
+		
+		
 		return "forward:/list";
 	}
 
@@ -233,8 +255,12 @@ public class RecipeController {
 	}
 
 	@RequestMapping(value = "/editRecipe", method = RequestMethod.POST)
-	public String editRecipe(@Valid @ModelAttribute RecipeModel changedRecipeModel,@RequestParam int id, BindingResult bindingResult,
-			Model model, Principal principal,@Valid @ModelAttribute("recipeCategoryModel") RecipeCategoryModel recipeCategoryModel,@Valid @ModelAttribute("ingredientModel") IngredientModel ingredientModel) {
+	public String editRecipe(@Valid @ModelAttribute RecipeModel changedRecipeModel,
+			@RequestParam int id, BindingResult bindingResult,
+			Model model, Principal principal,
+			@Valid @ModelAttribute("recipeCategoryModel") RecipeCategoryModel recipeCategoryModel,
+			@Valid @ModelAttribute("ingredientModel") IngredientModel ingredientModel,
+			@RequestParam(value="action", required=true) String action) {
 
 		if (bindingResult.hasErrors()) {
 			String errorMessage = "";
@@ -244,6 +270,7 @@ public class RecipeController {
 			model.addAttribute("errorMessage", errorMessage);
 			return "forward:/list";
 		}
+		
 		if (recipeCategoryModel.getIdCategory() == 0)
 		{
 			String errorMessage = "";
@@ -251,23 +278,31 @@ public class RecipeController {
 			model.addAttribute("errorMessage", errorMessage);
 			return "forward:/list";
 		}
-
+		
 		RecipeModel recipe = recipeRepository.findByIdRecipe(id);
 		System.out.println(changedRecipeModel.getIdRecipe());
 
 		if (recipe == null) {
 			model.addAttribute("errorMessage", "Recipe does not exist!<br>");
-		} else {
+		} 
+		else 
+		{
+			
 			recipe.setName(changedRecipeModel.getName());
 			recipe.setDescription(changedRecipeModel.getDescription());
 			recipe.setPreparation(changedRecipeModel.getPreparation());
-			recipe.addIngredient(ingredientModel);
+			if(ingredientModel.getIdIngredient() > 0){
+				recipe.addIngredient(ingredientModel);}
 			recipe.setRecipeCategoryModel(recipeCategoryRepository.findByIdCategory(recipeCategoryModel.getIdCategory()));
 			
 			RecipeModel recipe2 = recipeRepository.save(recipe);
 			model.addAttribute("message", "Changed recipe " + recipe2.getIdRecipe());
+			if(action.equals("addIngredient"))
+			{
+				return "redirect:/editRecipe?id="+recipe2.getIdRecipe();
+			}
 		}
-
+		
 		return "forward:/list";
 	}
 

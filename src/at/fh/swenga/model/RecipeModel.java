@@ -39,10 +39,10 @@ public class RecipeModel implements java.io.Serializable {
 	@Column(nullable = false, length = 45)
 	private String name;
 
-	@Column(nullable = false, length = 500)
+	@Column(nullable = false, length = 2000)
 	private String description;
 
-	@Column(nullable = false, length = 1000)
+	@Column(nullable = false, length = 2000)
 	private String preparation;
 
 	@Version

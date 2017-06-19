@@ -148,6 +148,33 @@
 				</table>
 			</div>
 		</div>
+		
+		
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+				<table data-toggle="table" class="table table-striped">
+					<thead>
+						<tr>
+							<th data-sortable="true">Name</th>
+
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!--  list all items ----------------------------------------------------------- -->
+						<tr th:each="ingredients1 : ${ingredients}">
+							<td th:text="${ingredients1.name}"></td>
+
+
+
+
+						</tr>
+						<!--  list all items ----------------------------------------------------------- -->
+					</tbody>
+				</table>
+
+			</div>
+		</div>
 
 <!-- ------------------------------------------------------------------------------------------------------ -->
 
