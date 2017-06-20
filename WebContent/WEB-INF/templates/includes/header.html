@@ -37,7 +37,7 @@
 				
 		<a th:if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'', ''ROLE_USER'')')}" href="addRecipe" type="submit" class="btn btn-primary btn-lg">Add Recipe</a>
 				
-		<a href="searchRecipe" type="submit" class="btn btn-primary btn-lg">Search</a>
+		<a href="/RezeptBox/WebContent/WEB-INF/templates/searchRecipe.html" type="submit" class="btn btn-primary btn-lg">Search</a>
 				
 		<a th:if="!${#authorization.expression('hasAnyRole(''ROLE_ADMIN'', ''ROLE_USER'')')}" href="login" type="submit" class="btn btn-primary btn-lg">Login/Register</a>		
 
