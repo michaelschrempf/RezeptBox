@@ -16,8 +16,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import at.fh.swenga.model.IngredientModel;
-import at.fh.swenga.model.QuantityUnitModel;
+import at.fh.swenga.model.IngredientDataModel;
 import at.fh.swenga.model.RecipeModel;
+import at.fh.swenga.model.UnitDataModel;
 import at.fh.swenga.model.UserModel;
 import at.fh.swenga.model.UserRoleModel;
  
@@ -25,17 +26,19 @@ import at.fh.swenga.model.UserRoleModel;
 @Repository
 @Transactional
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS, value = "session")
-public interface QuantityUnitRepository extends JpaRepository<QuantityUnitModel, Integer>{
+public interface UnitDataRepository extends JpaRepository<UnitDataModel, Integer>{
 	//allows us to read, update and delete RecipeModel in the database
 	
 	@Transactional
-    public QuantityUnitModel findByIdUnit(Integer idUnit);
+    public UnitDataModel findByIdUnitData(Integer idUnitData);
 	
 	@Transactional
-    public QuantityUnitModel removeByIdUnit(Integer idUnit);
-	
+    public UnitDataModel removeByIdUnitData(Integer idUnitData);
+
 	@Transactional
-    public List<QuantityUnitModel> findByName(String name);
+	public UnitDataModel findByName(String name);
+	
+	
 	
 	
 

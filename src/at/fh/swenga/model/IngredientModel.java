@@ -16,6 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -34,18 +35,45 @@ public class IngredientModel implements java.io.Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idIngredient;
 
-	@Column(nullable = false, length = 45)
-	private String name;
+	
+	@Column
+	private int amount;
+	
+	@ManyToOne(cascade=CascadeType.PERSIST)
+	private IngredientDataModel ingredientDataModel;
+	
+	@ManyToOne(cascade=CascadeType.PERSIST)
+	private UnitDataModel unitDataModel;
+	
+	
 
-	@Column
-	@ManyToMany(mappedBy="ingredientModels", fetch=FetchType.EAGER)
-	private Set<RecipeModel> recipeModel;
-	
-	@Column
-	@OneToMany(mappedBy = "ingredientModel", fetch = FetchType.EAGER)
-	private Set<QuantityUnitModel> quantityUnitModels;
+	@ManyToMany(mappedBy="ingredientModels")
+	private Set<RecipeModel> recipeModels;
 	
 	
+	
+
+		
+
+	
+	
+	
+
+
+
+
+	public IngredientModel(int idIngredient, UnitDataModel unitDataModel, int amount,
+			Set<RecipeModel> recipeModels, IngredientDataModel ingredientDataModel) {
+		super();
+		this.idIngredient = idIngredient;
+		this.unitDataModel = unitDataModel;
+		this.amount = amount;
+		this.recipeModels = recipeModels;
+		this.ingredientDataModel = ingredientDataModel;
+	}
+
+
+
 
 	/*---------------------------------------------------------*/
 	/*@OneToMany(mappedBy="ingredientModel", fetch=FetchType.EAGER)
@@ -62,45 +90,6 @@ public class IngredientModel implements java.io.Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-
-	
-
-
-
-	public IngredientModel(int idIngredient, String name, Set<RecipeModel> recipeModel,
-			Set<QuantityUnitModel> quantityUnitModels) {
-		super();
-		this.idIngredient = idIngredient;
-		this.name = name;
-		this.recipeModel = recipeModel;
-		this.quantityUnitModels = quantityUnitModels;
-	}
-
-
-
-
-
-
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	
-	public Set<RecipeModel> getRecipeModel() {
-		return recipeModel;
-	}
-
-
-
-	public void setRecipeModel(Set<RecipeModel> recipeModel) {
-		this.recipeModel = recipeModel;
-	}
 
 
 
@@ -110,16 +99,51 @@ public class IngredientModel implements java.io.Serializable {
 
 
 
+
 	public void setIdIngredient(int idIngredient) {
 		this.idIngredient = idIngredient;
 	}
+
+
+
+	
+
+
+
+
+	public UnitDataModel getUnitDataModel() {
+		return unitDataModel;
+	}
+
+
+
+
+	public void setUnitDataModel(UnitDataModel unitDataModel) {
+		this.unitDataModel = unitDataModel;
+	}
 	
 	
 
 
 
-	public Set<QuantityUnitModel> getQuantityUnitModels() {
-		return quantityUnitModels;
+	public Set<RecipeModel> getRecipeModels() {
+		return recipeModels;
+	}
+
+
+
+
+	public void setRecipeModels(Set<RecipeModel> recipeModels) {
+		this.recipeModels = recipeModels;
+	}
+	
+	
+
+
+
+
+	public IngredientDataModel getIngredientDataModel() {
+		return ingredientDataModel;
 	}
 
 
@@ -127,13 +151,27 @@ public class IngredientModel implements java.io.Serializable {
 
 
 
+	public void setIngredientDataModel(IngredientDataModel ingredientDataModel) {
+		this.ingredientDataModel = ingredientDataModel;
+	}
+	
+	
 
-	public void setQuantityUnitModels(Set<QuantityUnitModel> quantityUnitModels) {
-		this.quantityUnitModels = quantityUnitModels;
+
+
+
+
+
+	public int getAmount() {
+		return amount;
 	}
 
 
 
+
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
 
 
 
@@ -142,12 +180,38 @@ public class IngredientModel implements java.io.Serializable {
 		return serialVersionUID;
 	}
 	
-	public void addQuantityUnitModel(QuantityUnitModel quantityUnitModel) {
-		if (quantityUnitModels==null) {
-			quantityUnitModels= new HashSet<QuantityUnitModel>();
+	public void add(RecipeModel recipeModel) {
+		if (recipeModels == null) {
+			recipeModels= new HashSet<RecipeModel>();
 		}
-		quantityUnitModels.add(quantityUnitModel);
+		
+		
+		recipeModels.add(recipeModel);
 	}
+
+	
+	
+	
+	
+	
+
+
+
+	
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
 	
 	
 	

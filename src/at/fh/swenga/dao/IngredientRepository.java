@@ -33,9 +33,7 @@ public interface IngredientRepository extends JpaRepository<IngredientModel, Int
 	@Transactional
     public IngredientModel removeByIdIngredient(Integer idIngredient);
 	
-	@Transactional
-    public List<IngredientModel> findByName(String name);
-	
+		
 	
 
 	

@@ -53,7 +53,7 @@ public class UserModel implements java.io.Serializable {
 	private Set<RecipeModel> recipes;
 	
 	@Column
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany
 	@JoinTable(name = "usermodel_userrolemodel")
 	private Set<UserRoleModel> roles;
 
