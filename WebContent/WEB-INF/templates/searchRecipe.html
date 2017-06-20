@@ -2,11 +2,14 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>RezeptBox Search</title>
 </head>
 <body>
+
+<div class="container" role="main">
 	<div th:replace="~{includes/header :: headerFrag}"></div>
 	<br>
+	<nav th:replace="~{includes/searchNav :: search}"></nav>
 
 	<div class="row">
 		<div class="form-group col-md-10 col-md-offset-1">
@@ -44,6 +47,6 @@
 			</form>
 		</div>
 	</div>
-
+</div>
 </body>
 </html>
