@@ -30,96 +30,44 @@
 			</div>
 		</div>
 
-
-<!-- ------------------------------------------------------------------------------------------------------- -->
-
-<!-- 		<div class="row">
-			<div class="col-md-10 col-md-offset-1">
-				<table data-toggle="table" class="table table-striped">
-					<thead>
-						<tr>
-							<th data-sortable="true">ID</th>
-							<th data-sortable="true">Name</th>
-							<th data-sortable="true">Description</th>
-							<th data-sortable="true">Preparation</th>
-							<th data-sortable="true">User Name</th>
-							<th>Action</th>
-						</tr>
-					</thead>
-					<tbody>
-						 list all items -----------------------------------------------------------
-						<tr th:each="recipe : ${#request.getAttribute('recipes')}">
-							<td th:text="${recipe.idRecipe}"></td>
-							<td th:text="${recipe.name}"></td>
-							<td th:text="${recipe.description}"></td>
-							<td th:text="${recipe.preparation}"></td>
-							<td th:text="${recipe.userModel.username}"></td>
-							<td>
-								<div
-									th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-									<a th:href="@{/deleteRecipe(id=${recipe.idRecipe})}">
-										<button type="button" class="btn btn-xs btn-danger">
-											<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-											Delete
-										</button>
-									</a> <a th:href="@{/editRecipe(id=${recipe.idRecipe})}">
-										<button type="button" class="btn btn-xs btn-success">
-											<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-											Edit
-										</button>
-									</a> <a th:href="@{/showRecipe(id=${recipe.idRecipe})}">
-										<button type="button" class="btn btn-xs btn-success">
-											<span class="glyphicon glyphicon-ee-open" aria-hidden="true"></span>
-											Show Recipe
-										</button>
-									</a>
-								</div>
-							</td>
-						</tr>
-						 list all items -----------------------------------------------------------
-					</tbody>
-				</table>
-
-			</div>
-		</div>
- -->
-<!-- ------------------------------------------------------------------------------------------------------- -->
-
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1">
 				<table  th:each="recipe : ${#request.getAttribute('recipes')}">
 					<tr>
-						<td th:text="${recipe.recipeCategoryModel.name}" style="font-size: 20px; font-style: italic"></td>
-					</tr>
-					<tr>
-						<td th:text="${recipe.name}" style="font-size: 50px; font-weight: bold"></td>
-					</tr>
-					<tr>
-						<td th:text="${recipe.description}" style="font-size: 16px; font-weight: bold"></td>
-					</tr>
-					<tr>
-						 <td><br></td>
-					</tr>
-					<tr>
-						<td><p style="font-weight: bold">Author </p>
-							<p th:text="${recipe.userModel.username}"></p></td>
-					</tr>
-					<tr>
-						 <td><br></td>
-					</tr>
+						<p th:text="${recipe.recipeCategoryModel.name}" style="font-size: 20px; font-style: italic"></p>
+						<p th:text="${recipe.name}" style="font-size: 30px; font-weight: bold"></p>
+						<p th:text="${recipe.description}" style="font-size: 16px; font-weight: bold"></p>
+						<br>
+						<p style="font-weight: bold">Author </p>
+							<p th:text="${recipe.userModel.username}"></p>
+						<br>
+						<p style="font-size: 20px; font-weight: bold">Ingredients: </p>
+						
+						<table data-toggle="table" class="table table-striped">
+							<thead>
+								<tr>
+									<th data-sortable="true">Name</th>
+	
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<!--  list all items ----------------------------------------------------------- -->
+								<tr th:each="ingredients1 : ${ingredients}">
+									<td th:text="${ingredients1.name}"></td>
+
+								</tr>
+								<!--  list all items ----------------------------------------------------------- -->
+							</tbody>
+						</table>
+						
+						<br>
+						<p style="font-size: 20px; font-weight: bold">Preparation: </p>
+							<p th:text="${recipe.preparation}"></p>
+						<br>
 					
-			<!-- 		<tr>
-						 <td><p style="font-size: 20px; font-weight: bold">Ingredients: </p>
-							<p th:text="${recipe.ingredientModel.name}"></p></td>
-					</tr> -->
-					
-					<tr>
-						<td><p style="font-size: 20px; font-weight: bold">Preparation: </p>
-							<p th:text="${recipe.preparation}"></p></td>
 					</tr>
-					<tr>
-						 <td><br></td>
-					</tr>
+			
 					<tr>
 						<td>
 							<div
@@ -149,37 +97,6 @@
 			</div>
 		</div>
 		
-		
-		<div class="row">
-			<div class="col-md-10 col-md-offset-1">
-				<table data-toggle="table" class="table table-striped">
-					<thead>
-						<tr>
-							<th data-sortable="true">Name</th>
-
-							<th>Action</th>
-						</tr>
-					</thead>
-					<tbody>
-						<!--  list all items ----------------------------------------------------------- -->
-						<tr th:each="ingredients1 : ${ingredients}">
-							<td th:text="${ingredients1.name}"></td>
-
-
-
-
-						</tr>
-						<!--  list all items ----------------------------------------------------------- -->
-					</tbody>
-				</table>
-
-			</div>
-		</div>
-
-<!-- ------------------------------------------------------------------------------------------------------ -->
-
-
-
 
 		<div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
 			This will only be displayed if authenticated user has role
