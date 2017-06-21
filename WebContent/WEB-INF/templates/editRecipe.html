@@ -160,12 +160,13 @@
 							<th data-sortable="true">Zutat</th>
 
 
-							<th th:if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'')'}">Action</th>
+							<th
+								th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Action</th>
 						</tr>
 					</thead>
 					<tbody>
 						<!--  list all items ----------------------------------------------------------- -->
-						<tr th:each="ingredientModel : ${recipeModel.ingredientModels}">
+						<tr th:each="ingredientModel : ${recipeModel} ? ${recipeModel.ingredientModels}">
 							<td th:text="${ingredientModel.amount}"></td>
 							<td th:text="${ingredientModel.unitDataModel.name}"></td>
 							<td th:text="${ingredientModel.ingredientDataModel.name}"></td>
@@ -173,7 +174,7 @@
 								<!--	<div
 									th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"></div>-->
 								<a
-								th:if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'')'}"
+								th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"
 								th:href="@{/deleteIngredient(id=${ingredientModel.idIngredient})}">
 									<button type="button" class="btn btn-xs btn-danger">
 										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
@@ -184,7 +185,7 @@
 
 
 							</td>
-							
+
 
 
 
