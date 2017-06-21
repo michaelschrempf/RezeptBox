@@ -4,7 +4,7 @@ INSERT INTO IMA15_stangl_project_2.RecipeCategoryModel (idCategory,name,version)
 INSERT INTO IMA15_stangl_project_2.RecipeCategoryModel (idCategory,name,version) VALUES (2,'Sweets',0);
 INSERT INTO IMA15_stangl_project_2.RecipeCategoryModel (idCategory,name,version) VALUES (3,'Cocktails',0);
 INSERT INTO IMA15_stangl_project_2.RecipeCategoryModel (idCategory,name,version) VALUES (4,'Meat Dishes',0);
-INSERT INTO IMA15_stangl_project_2.IngredientModel (idIngredient,name) VALUES (1,'Zucker');
+INSERT INTO IMA15_stangl_project_2.IngredientDataModel (idIngredient,name) VALUES (1,'Zucker');
 INSERT INTO IMA15_stangl_project_2.IngredientModel (idIngredient,name) VALUES (2,'Mehl');
 INSERT INTO IMA15_stangl_project_2.IngredientModel (idIngredient,name) VALUES (3,'Zitrone');
 INSERT INTO IMA15_stangl_project_2.IngredientModel (idIngredient,name) VALUES (4,'Salz');
