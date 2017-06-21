@@ -84,14 +84,14 @@ public class LoginController {
 
 	@RequestMapping(value = "/registration", method = RequestMethod.GET)
 	public String showRegistrationForm(Model model) {
-		model.addAttribute("user", new UserModel());
+		model.addAttribute("userModel", new UserModel());
 
 		return "registration";
 	}
 
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
-	public String addUser(@Valid @ModelAttribute UserModel user, BindingResult bindingResult, Model model) {
-		userValidator.validate(user, bindingResult);
+	public String addUser(@Valid @ModelAttribute UserModel userModel, BindingResult bindingResult, Model model) {
+		userValidator.validate(userModel, bindingResult);
 
 		if (bindingResult.hasErrors()) {
 			String errorMessage = "";
@@ -102,7 +102,7 @@ public class LoginController {
 			return "registration";
 		}
 
-		userService.save(user);
+		userService.save(userModel);
 
 		//securityService.autologin(user.getUsername(), user.getPasswordConfirm());
 
