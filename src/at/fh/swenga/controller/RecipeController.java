@@ -2,6 +2,7 @@ package at.fh.swenga.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -113,11 +114,9 @@ public class RecipeController {
 
 	@RequestMapping("/deleteRecipe")
 	public String deleteRecipe(Model model, @RequestParam int id, Principal principal) {
-		if(recipeRepository.findByIdRecipe(id).getUserModel().getUsername() == SecurityContextHolder.getContext().getAuthentication().getName())
-			{
-			recipeRepository.delete(id);
-			}
 		
+			recipeRepository.delete(id);
+					
 
 		return "forward:/list";
 	}
@@ -158,7 +157,8 @@ public class RecipeController {
 			recipeModels = recipeRepository.findByUserModelUsername(searchString);
 			break;
 		case "query4":
-			recipeModels = recipeRepository.findByIngredientModelName(searchString);
+			recipeModels = recipeRepository.findByIngredientModelsIngredientDataModelName(searchString);		
+			
 			break;
 
 		default:

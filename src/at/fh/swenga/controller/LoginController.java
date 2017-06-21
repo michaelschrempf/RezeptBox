@@ -7,6 +7,8 @@ import java.util.Set;
 
 import javax.validation.Valid;
 
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -122,6 +124,29 @@ public class LoginController {
 		System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
 
 		return "login";
+	}
+	
+	@RequestMapping(value = "/sanitize", method = RequestMethod.GET)
+	public String testSanitization(Model model) {
+		/* Teststrings:
+		 * <p><a href='http://example.com/' onclick='stealCookies()'>Link</a></p>
+		 * <img src='http://placehold.it/350x150' />
+		 * <script>alert(document.cookie)</script>
+		 */
+		
+		String unsanitized = "<p><a href='http://example.com/' onclick='stealCookies()'>Link</a></p>";
+		String sanitized = Jsoup.clean(unsanitized, Whitelist.basic());
+		
+		// Whitelist Values: http://jsoup.org/apidocs/org/jsoup/safety/Whitelist.html
+		
+		model.addAttribute("sanitized", sanitized);
+		model.addAttribute("unsanitized", unsanitized);
+		return "testSanitization";
+	}
+	
+	@ExceptionHandler(Exception.class)
+	public String handleAllException(Exception ex) {
+		return "error";
 	}
 
 	
