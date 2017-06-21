@@ -10,7 +10,6 @@
 <body>
 
 
-
 	<div class="container" role="main">
 		<div th:replace="~{includes/header :: headerFrag}"></div>
 
@@ -29,11 +28,8 @@
 
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1">
-				<table
-					th:each="recipeModel : ${#request.getAttribute('recipeModel')}">
+				<table th:each="recipeModel : ${#request.getAttribute('recipeModel')}">
 					<tr>
-
-
 						<p th:text="${recipeModel.recipeCategoryModel.name}" style="font-size: 20px; font-style: italic"></p>
 						<p th:text="${recipeModel.nameRecipe}" style="font-size: 30px; font-weight: bold"></p>
 						<p th:text="${recipeModel.description}" style="font-size: 16px; font-weight: bold"></p>
@@ -43,60 +39,31 @@
 						<br>
 						<p style="font-size: 20px; font-weight: bold">Ingredients:</p>
 
-						<!-- <table data-toggle="table" class="table table-striped">
-							<thead>
-								<tr>
-									<th data-sortable="true">Name</th>
-	
-									<th>Action</th>
-								</tr>
-							</thead>
-							<tbody>
-
-								<tr th:each="ingredients1 : ${ingredients}">
-									<td th:text="${ingredients1.name}"></td>
-
-								</tr>
-
-							</tbody>
-						</table> -->
 
 						<table data-toggle="table" class="table table-striped">
 							<thead>
 								<tr>
-									<th data-sortable="true">ID</th>
-
 									<th data-sortable="true">Menge</th>
 									<th data-sortable="true">Einheit</th>
 									<th data-sortable="true">Zutat</th>
-
-									<th th:if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'')')}">Action</th>
+									<th th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Action</th>
 								</tr>
 							</thead>
 							<tbody>
-								<!--  list all items ----------------------------------------------------------- -->
 								<tr th:each="ingredientModel : ${recipeModel.ingredientModels}">
-									<td th:text="${ingredientModel.idIngredient}"></td>
-
 									<td th:text="${ingredientModel.amount}"></td>
 									<td th:text="${ingredientModel.unitDataModel.name}"></td>
 									<td th:text="${ingredientModel.ingredientDataModel.name}"></td>
 									<td>
-										<!--	<div
-									th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"></div>-->
-										<a
-										th:if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'')'}"
-										th:href="@{/deleteIngredient(id=${ingredientModel.idIngredient})}">
+										<a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')'}"
+											th:href="@{/deleteIngredient(id=${ingredientModel.idIngredient})}">
 											<button type="button" class="btn btn-xs btn-danger">
 												<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 												Delete
 											</button>
-									</a>
-
+										</a>
 									</td>
-
 								</tr>
-								<!--  list all items ----------------------------------------------------------- -->
 							</tbody>
 						</table>
 
@@ -109,26 +76,23 @@
 					</tr>
 
 					<tr>
-						<td>
-							<div
-								th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-								<a th:href="@{/deleteRecipe(id=${recipeModel.idRecipe})}">
-									<button type="button" class="btn btn-xs btn-danger">
-										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+						<div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+							<a th:href="@{/deleteRecipe(id=${recipeModel.idRecipe})}">
+								<button type="button" class="btn btn-xs btn-danger">
+									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 										Delete
-									</button>
-								</a> <a th:href="@{/editRecipe(id=${recipeModel.idRecipe})}">
-									<button type="button" class="btn btn-xs btn-success">
-										<span class="glyphicon pencil" aria-hidden="true"></span> Edit
-									</button>
-								</a> <a th:href="@{/showRecipe(id=${recipeModel.idRecipe})}">
-									<button type="button" class="btn btn-xs btn-success">
-										<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+								</button>
+							</a> <a th:href="@{/editRecipe(id=${recipeModel.idRecipe})}">
+								<button type="button" class="btn btn-xs btn-success">
+									<span class="glyphicon pencil" aria-hidden="true"></span> Edit
+								</button>
+							</a> <a th:href="@{/showRecipe(id=${recipeModel.idRecipe})}">
+								<button type="button" class="btn btn-xs btn-success">
+									<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
 										Show Recipe
-									</button>
-								</a>
-							</div>
-						</td>
+								</button>
+							</a>
+						</div>
 					</tr>
 				</table>
 			</div>
