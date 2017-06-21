@@ -112,7 +112,6 @@ public class RecipeController {
 		if (recipeModel != null) {
 			model.addAttribute("recipeModel", recipeRepository.findByIdRecipe(id));
 
-			model.addAttribute("ingredientModels", recipeModel.getIngredientModels());
 			return "showRecipe";
 		} else {
 			model.addAttribute("errorMessage", "Couldn't find recipe " + id);
