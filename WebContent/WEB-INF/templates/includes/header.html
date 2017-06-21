@@ -37,7 +37,6 @@
 				
 		<a th:if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'', ''ROLE_USER'')')}" href="addRecipe" type="submit" class="btn btn-primary btn-lg">Add Recipe</a>
 				
-		<a href="find" type="submit" class="btn btn-primary btn-lg">Special Search</a>
 				
 		<a th:if="!${#authorization.expression('hasAnyRole(''ROLE_ADMIN'', ''ROLE_USER'')')}" href="login" type="submit" class="btn btn-primary btn-lg">Login/Register</a>		
 

@@ -140,6 +140,9 @@ public class RecipeController {
 		case "query3":
 			recipeModels = recipeRepository.findByUserModelUsername(searchString);
 			break;
+		case "query4":
+			recipeModels = recipeRepository.doAnIngredientSearch(searchString);
+			break;
 
 		default:
 			recipeModels = recipeRepository.findAll();
