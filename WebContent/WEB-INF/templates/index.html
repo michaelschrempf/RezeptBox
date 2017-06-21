@@ -14,12 +14,7 @@
 	<div class="container" role="main">
 
 		<div th:replace="~{includes/header :: headerFrag}"></div>
-		<br>
-
-		<nav th:replace="~{includes/searchNav :: search}"></nav>
-
-
-
+		
 
 		<div th:if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'', ''ROLE_USER'')')}" class="row">
 			<div class="form-group col-md-10 col-md-offset-1">
@@ -45,7 +40,7 @@
 					<thead>
 						<tr>
 							<th data-sortable="true">ID</th>
-							<th data-sortable="true">Name</th>
+							<th data-sortable="true">Recipe</th>
 							<th data-sortable="true">Cook</th>
 							<th data-sortable="true">Category</th>
 
