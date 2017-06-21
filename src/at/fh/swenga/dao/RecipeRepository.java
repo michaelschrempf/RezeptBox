@@ -46,7 +46,8 @@ public interface RecipeRepository extends JpaRepository<RecipeModel, Integer>{
 	@Transactional
 	public List<RecipeModel> findByUserModelUsername(String searchString);
 	
-	
+	@Transactional
+	public List<RecipeModel> doAnIngredientSearch(@Param("search")String searchString);
 	
 	
 	

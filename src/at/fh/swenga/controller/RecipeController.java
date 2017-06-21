@@ -32,6 +32,7 @@ import at.fh.swenga.model.IngredientDataModel;
 import at.fh.swenga.model.RecipeCategoryModel;
 import at.fh.swenga.model.RecipeModel;
 import at.fh.swenga.model.UnitDataModel;
+import at.fh.swenga.model.UserModel;
 
 @Controller
 public class RecipeController {
@@ -74,9 +75,21 @@ public class RecipeController {
 
 		model.addAttribute("recipeModels", recipeModels);
 
-		System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
+
 
 		return "index";
+	}
+
+	@RequestMapping("/myRecipe")
+	public String myRecipe(Model model) {
+		List<RecipeModel> recipeModels = null;
+		recipeModels = recipeRepository.findByUserModelUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+
+		model.addAttribute("recipeModels", recipeModels);
+
+		System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
+
+		return "myRecipe";
 	}
 
 	/*
@@ -139,6 +152,9 @@ public class RecipeController {
 			break;
 		case "query3":
 			recipeModels = recipeRepository.findByUserModelUsername(searchString);
+			break;
+		case "query4":
+			recipeModels = recipeRepository.doAnIngredientSearch(searchString);
 			break;
 
 		default:

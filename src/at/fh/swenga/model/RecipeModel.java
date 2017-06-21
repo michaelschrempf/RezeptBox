@@ -27,7 +27,9 @@ import at.fh.swenga.dao.UnitDataRepository;
 
 
 @NamedQueries({
-		@NamedQuery(name = "RecipeModel.doANameSearchWithLike", query = "select e from RecipeModel e where e.nameRecipe like :search") })
+		@NamedQuery(name = "RecipeModel.doANameSearchWithLike", query = "select e from RecipeModel e where e.nameRecipe like :search"), 
+		@NamedQuery(name = "RecipeModel.doAnIngredientSearch", query = "select e from RecipeModel e inner join IngredientDataModel i where i.name = :search ")
+		})
 
 @Entity
 @Table

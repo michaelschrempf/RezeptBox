@@ -9,6 +9,7 @@
         <intercept-url pattern="/" access="permitAll"/>
         <intercept-url pattern="/list" access="permitAll"/>
         <intercept-url pattern="/addRecipe" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
+        <intercept-url pattern="/myRecipe" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
         <intercept-url pattern="/editRecipe" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
         <intercept-url pattern="/deleteRecipe" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
         <form-login login-page="/login" default-target-url="/list" authentication-failure-url="/login?error" username-parameter="username" password-parameter="password"/>

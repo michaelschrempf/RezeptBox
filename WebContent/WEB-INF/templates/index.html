@@ -15,7 +15,45 @@
 
 		<div th:replace="~{includes/header :: headerFrag}"></div>
 		
+<div class="container" role="main">
+	<div class="row">
+		<div class="form-group col-md-10 col-md-offset-1">
 
+			<h3>Special Search</h3>
+			<form class="form-horizontal" method="post" action="find">
+				<input type="hidden" th:name="${_csrf.parameterName}"
+					th:value="${_csrf.token}" />
+				<div class="form-group">
+					<label class="control-label col-md-2" for="searchType">Search:</label>
+					<div class="col-md-5">
+						<select name="searchType" class="form-control">
+							<option value="query1" selected="selected">Show all
+								HardDrives</option>
+							<option value="query2">Filter by Category</option>
+							<option value="query3">Filter by Cook</option>
+							<option value="query4">Filter by Ingredient</option>
+
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-md-2" for="searchString">SearchString:</label>
+					<div class="col-md-5">
+						<input type="text" name="searchString" class="form-control">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-md-2"></div>
+					<div class="col-md-5">
+						<input class="btn btn-default" type="submit" value="Search">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
 		<div th:if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'', ''ROLE_USER'')')}" class="row">
 			<div class="form-group col-md-10 col-md-offset-1">
 				<p>
@@ -59,7 +97,7 @@
 											Delete
 										</button>
 									</a> 
-									<a  th:if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'', ''ROLE_USER'')')}" th:href="@{/editRecipe(id=${recipeModel.idRecipe})}">
+									<a  th:if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'')')}" th:href="@{/editRecipe(id=${recipeModel.idRecipe})}">
 										<button type="button" class="btn btn-xs btn-success">
 											<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 											Edit
