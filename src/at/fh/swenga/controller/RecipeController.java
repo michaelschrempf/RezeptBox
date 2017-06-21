@@ -113,7 +113,11 @@ public class RecipeController {
 
 	@RequestMapping("/deleteRecipe")
 	public String deleteRecipe(Model model, @RequestParam int id, Principal principal) {
-		recipeRepository.delete(id);
+		if(recipeRepository.findByIdRecipe(id).getUserModel().getUsername() == SecurityContextHolder.getContext().getAuthentication().getName())
+			{
+			recipeRepository.delete(id);
+			}
+		
 
 		return "forward:/list";
 	}
@@ -154,7 +158,7 @@ public class RecipeController {
 			recipeModels = recipeRepository.findByUserModelUsername(searchString);
 			break;
 		case "query4":
-			recipeModels = recipeRepository.doAnIngredientSearch(searchString);
+			recipeModels = recipeRepository.findByIngredientModelName(searchString);
 			break;
 
 		default:

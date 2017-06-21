@@ -66,7 +66,10 @@ public class IngredientController {
 	
 	@RequestMapping("/deleteIngredient")
 	public String deleteRecipe(Model model, @RequestParam int id, Principal principal) {
-		ingredientRepository.delete(id);
+		
+			ingredientRepository.delete(id);
+		
+		
 
 		return "forward:/list";
 	}
