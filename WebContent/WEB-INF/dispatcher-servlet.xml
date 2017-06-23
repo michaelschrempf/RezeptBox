@@ -34,7 +34,7 @@
 	
 	<jpa:repositories base-package="at.fh.swenga.dao"/>
  
-	<!-- mvc:default-servlet-handler / -->
+	<mvc:default-servlet-handler />
  
 	<bean id="templateResolver"
 		class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">

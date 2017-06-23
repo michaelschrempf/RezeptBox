@@ -137,7 +137,7 @@ public class RecipeController {
 
 	@RequestMapping("/searchRecipes")
 	public String searchRecipes(Model model, @RequestParam String searchString) {
-		model.addAttribute("recipes", recipeRepository.doANameSearchWithLike("%" + searchString + "%"));
+		model.addAttribute("recipeModels", recipeRepository.doANameSearchWithLike("%" + searchString + "%"));
 		return "index";
 	}
 
