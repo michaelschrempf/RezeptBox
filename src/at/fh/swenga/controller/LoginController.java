@@ -51,18 +51,12 @@ public class LoginController {
 
 	@Autowired
 	private UserService userService;
-	
-	
-
 
 	@Autowired
 	private SecurityService securityService;
-	
 
 	@Autowired
 	private UserValidator userValidator;
-
-	
 
 	/*
 	 * @RequestMapping("/fillRecipeList")
@@ -83,24 +77,21 @@ public class LoginController {
 	 * return "forward:list"; }
 	 */
 
-
 	@RequestMapping(value = "/registration", method = RequestMethod.GET)
-	public String showRegistrationForm(Model model) {
-		model.addAttribute("userModel", new UserModel());
+	public String showRegistrationForm(Model model, @Valid @ModelAttribute UserModel userModel) {
 
 		return "registration";
 	}
 
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
 	public String addUser(@Valid @ModelAttribute UserModel userModel, BindingResult bindingResult, Model model) {
-		userValidator.validate(userModel, bindingResult);
 
+	
+		userValidator.validate(userModel, bindingResult);
+		
+		
 		if (bindingResult.hasErrors()) {
-			String errorMessage = "";
-			for (FieldError fieldError : bindingResult.getFieldErrors()) {
-				errorMessage += fieldError.getField() + " is used<br>";
-			}
-			model.addAttribute("errorMessage", errorMessage);
+		
 			return "registration";
 		}
 
@@ -113,41 +104,41 @@ public class LoginController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String handleLogin(Model model, String error, String logout, Principal principal) {
-		
 
 		if (error != null)
 			model.addAttribute("error", "Your username and password is invalid.");
 
 		if (logout != null)
 			model.addAttribute("message", "You have been logged out successfully.");
-		
+
 		System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
 
 		return "login";
 	}
-	
+
 	@RequestMapping(value = "/sanitize", method = RequestMethod.GET)
 	public String testSanitization(Model model) {
-		/* Teststrings:
-		 * <p><a href='http://example.com/' onclick='stealCookies()'>Link</a></p>
-		 * <img src='http://placehold.it/350x150' />
+		/*
+		 * Teststrings: <p><a href='http://example.com/'
+		 * onclick='stealCookies()'>Link</a></p> <img
+		 * src='http://placehold.it/350x150' />
 		 * <script>alert(document.cookie)</script>
 		 */
-		
+
 		String unsanitized = "<p><a href='http://example.com/' onclick='stealCookies()'>Link</a></p>";
 		String sanitized = Jsoup.clean(unsanitized, Whitelist.basic());
-		
-		// Whitelist Values: http://jsoup.org/apidocs/org/jsoup/safety/Whitelist.html
-		
+
+		// Whitelist Values:
+		// http://jsoup.org/apidocs/org/jsoup/safety/Whitelist.html
+
 		model.addAttribute("sanitized", sanitized);
 		model.addAttribute("unsanitized", unsanitized);
 		return "testSanitization";
 	}
-	
+
 	@ExceptionHandler(Exception.class)
 	public String handleAllException(Exception ex) {
 		return "error";
 	}
 
-	
 }
