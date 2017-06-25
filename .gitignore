@@ -3,3 +3,4 @@ db.properties
 target/**.xml
 target/**.mf
 target/**.properties
+target/**
