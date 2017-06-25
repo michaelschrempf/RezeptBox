@@ -1,3 +1,5 @@
 import.sql
 db.properties
-target/**
+target/**.xml
+target/**.mf
+target/**.properties
