@@ -1,0 +1,17 @@
+INSERT INTO database_name.UserRoleModel (userRoleId,role) VALUES (1,'ROLE_USER');
+INSERT INTO database_name.UserRoleModel (userRoleId,role) VALUES (2,'ROLE_ADMIN');
+INSERT INTO database_name.RecipeCategoryModel (idCategory,name,version) VALUES (1,'Drinks',0);
+INSERT INTO database_name.RecipeCategoryModel (idCategory,name,version) VALUES (2,'Sweets',0);
+INSERT INTO database_name.RecipeCategoryModel (idCategory,name,version) VALUES (3,'Cocktails',0);
+INSERT INTO database_name.RecipeCategoryModel (idCategory,name,version) VALUES (4,'Meat Dishes',0);
+INSERT INTO database_name.IngredientDataModel (idIngredientData,name) VALUES (1,'Zucker');
+INSERT INTO database_name.IngredientDataModel (idIngredientData,name) VALUES (2,'Mehl');
+INSERT INTO database_name.IngredientDataModel (idIngredientData,name) VALUES (3,'Zitrone');
+INSERT INTO database_name.IngredientDataModel (idIngredientData,name) VALUES (4,'Salz');
+INSERT INTO database_name.IngredientDataModel (idIngredientData,name) VALUES (5,'Pfeffer');
+INSERT INTO database_name.IngredientDataModel (idIngredientData,name) VALUES (6,'Milch');
+INSERT INTO database_name.unitDataModel (idUnitData, name) VALUES (1,'Kilogramm');
+INSERT INTO database_name.unitDataModel (idUnitData, name) VALUES (2,'Stück');
+INSERT INTO database_name.unitDataModel (idUnitData, name) VALUES (3,'Gramm');
+INSERT INTO database_name.unitDataModel (idUnitData, name) VALUES (4,'Liter');
+INSERT INTO database_name.unitDataModel (idUnitData, name) VALUES (5,'Milliliter');
